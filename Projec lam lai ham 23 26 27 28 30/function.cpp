@@ -416,7 +416,7 @@ void output_file_Student(ofstream& fout, LinkedList lst2, LinkedList lst, Node* 
 
 
 		}
-		fout << endl;
+		fout <<1<< endl;
 		current = current->next;
 	}
 }
@@ -881,6 +881,7 @@ void view_2(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst
 	ifstream fin;
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
+	int active[100];
 	fin.open(inputpath);
 	if (!fin.is_open()) {
 		cout << "can't open " << inputpath << " file";
@@ -890,7 +891,6 @@ void view_2(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst
 		int i = 0;
 		while (current != NULL) {
 			int j = 0;
-			if (i == 0) {
 				getline(fin, current->student.StudentID, '\n');
 				getline(fin, current->student.StudentPass, '\n');
 				getline(fin, current->student.StudentName, '\n');
@@ -921,49 +921,14 @@ void view_2(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst
 					getline(fin, endHour1, ' ');
 					getline(fin, endMinute1, ' ');
 					fin >> attendence[i][j];
-					fin.ignore();
+					if (n < 9) {
+						fin.ignore();
+					}
 					j++;
 					n++;
 				}
-			}
-			else {
-				getline(fin, current->student.StudentID, '\n');
-				getline(fin, current->student.StudentID, '\n');
-				getline(fin, current->student.StudentPass, '\n');
-				getline(fin, current->student.StudentName, '\n');
-				getline(fin, current->student.StudentDOB, '\n');
-				getline(fin, current->student.StudentGender, '\n');
-				fin >> current->student.midterm;
-				fin >> current->student.final;
-				fin >> current->student.bonus;
-				fin >> current->student.total;
-				fin.ignore();
-				getline(fin, currentlst->schedule.startYear, ' ');
-				getline(fin, currentlst->schedule.startMonth, ' ');
-				getline(fin, currentlst->schedule.startDay, ' ');
-				getline(fin, currentlst->schedule.starthour, ' ');
-				getline(fin, currentlst->schedule.startminute, ' ');
-				getline(fin, currentlst->schedule.endhour, ' ');
-				getline(fin, currentlst->schedule.endminute, ' ');
-				fin >> attendence[i][j];
-				fin.ignore();
-				j++;
-				int n = 1;
-				while (n != 10) {
-					getline(fin, year1, ' ');
-					getline(fin, month1, ' ');
-					getline(fin, day1, ' ');
-					getline(fin, startHour1, ' ');
-					getline(fin, startMinute1, ' ');
-					getline(fin, endHour1, ' ');
-					getline(fin, endMinute1, ' ');
-					fin >> attendence[i][j];
-					fin.ignore();
-					j++;
-					n++;
-				}
-			}
-
+			fin >> active[i];
+			fin.ignore();
 			current = current->next;
 			i++;
 		}
@@ -1055,7 +1020,7 @@ void view_2(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst
 			cout << attendence[i][j] << endl;
 			j++;
 		}
-		cout << endl;
+		cout << active[i];
 		i++;
 		current = current->next;
 		cout << endl;
@@ -1069,6 +1034,7 @@ void edit_Attendence(ofstream &fout,string inputpath, string outputpath,LinkedLi
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int a = -100;
+	int active[100];
 	fin.open(inputpath);
 	if (!fin.is_open()) {
 		cout << "can't open " << inputpath << " file";
@@ -1078,92 +1044,56 @@ void edit_Attendence(ofstream &fout,string inputpath, string outputpath,LinkedLi
 		int i = 0;
 		while (current != NULL) {
 			int j = 0;
-			if (i == 0) {
-				getline(fin, current->student.StudentID, '\n');
-				getline(fin, current->student.StudentPass, '\n');
-				getline(fin, current->student.StudentName, '\n');
-				getline(fin, current->student.StudentDOB, '\n');
-				getline(fin, current->student.StudentGender, '\n');
-				fin >> current->student.midterm;
-				fin >> current->student.final;
-				fin >> current->student.bonus;
-				fin >> current->student.total;
-				fin.ignore();
-				getline(fin, currentlst->schedule.startYear, ' ');
-				getline(fin, currentlst->schedule.startMonth, ' ');
-				getline(fin, currentlst->schedule.startDay, ' ');
-				getline(fin, currentlst->schedule.starthour, ' ');
-				getline(fin, currentlst->schedule.startminute, ' ');
-				getline(fin, currentlst->schedule.endhour, ' ');
-				getline(fin, currentlst->schedule.endminute, ' ');
+			getline(fin, current->student.StudentID, '\n');
+			getline(fin, current->student.StudentPass, '\n');
+			getline(fin, current->student.StudentName, '\n');
+			getline(fin, current->student.StudentDOB, '\n');
+			getline(fin, current->student.StudentGender, '\n');
+			fin >> current->student.midterm;
+			fin >> current->student.final;
+			fin >> current->student.bonus;
+			fin >> current->student.total;
+			fin.ignore();
+			getline(fin, currentlst->schedule.startYear, ' ');
+			getline(fin, currentlst->schedule.startMonth, ' ');
+			getline(fin, currentlst->schedule.startDay, ' ');
+			getline(fin, currentlst->schedule.starthour, ' ');
+			getline(fin, currentlst->schedule.startminute, ' ');
+			getline(fin, currentlst->schedule.endhour, ' ');
+			getline(fin, currentlst->schedule.endminute, ' ');
+			fin >> attendence[i][j];
+			fin.ignore();
+			j++;
+			int n = 1;
+			while (n != 10) {
+				getline(fin, year1, ' ');
+				getline(fin, month1, ' ');
+				getline(fin, day1, ' ');
+				getline(fin, startHour1, ' ');
+				getline(fin, startMinute1, ' ');
+				getline(fin, endHour1, ' ');
+				getline(fin, endMinute1, ' ');
 				fin >> attendence[i][j];
-				fin.ignore();
-				j++;
-				int n = 1;
-				while (n != 10) {
-					getline(fin, year1, ' ');
-					getline(fin, month1, ' ');
-					getline(fin, day1, ' ');
-					getline(fin, startHour1, ' ');
-					getline(fin, startMinute1, ' ');
-					getline(fin, endHour1, ' ');
-					getline(fin, endMinute1, ' ');
-					fin >> attendence[i][j];
+				if (n < 9) {
 					fin.ignore();
-					j++;
-					n++;
 				}
-			}
-			else {
-				getline(fin, current->student.StudentID, '\n');
-				getline(fin, current->student.StudentID, '\n');
-				getline(fin, current->student.StudentPass, '\n');
-				getline(fin, current->student.StudentName, '\n');
-				getline(fin, current->student.StudentDOB, '\n');
-				getline(fin, current->student.StudentGender, '\n');
-				fin >> current->student.midterm;
-				fin >> current->student.final;
-				fin >> current->student.bonus;
-				fin >> current->student.total;
-				fin.ignore();
-				getline(fin, currentlst->schedule.startYear, ' ');
-				getline(fin, currentlst->schedule.startMonth, ' ');
-				getline(fin, currentlst->schedule.startDay, ' ');
-				getline(fin, currentlst->schedule.starthour, ' ');
-				getline(fin, currentlst->schedule.startminute, ' ');
-				getline(fin, currentlst->schedule.endhour, ' ');
-				getline(fin, currentlst->schedule.endminute, ' ');
-				fin >> attendence[i][j];
-				fin.ignore();
 				j++;
-				int n = 1;
-				while (n != 10) {
-					getline(fin, year1, ' ');
-					getline(fin, month1, ' ');
-					getline(fin, day1, ' ');
-					getline(fin, startHour1, ' ');
-					getline(fin, startMinute1, ' ');
-					getline(fin, endHour1, ' ');
-					getline(fin, endMinute1, ' ');
-					fin >> attendence[i][j];
-					fin.ignore();
-					j++;
-					n++;
-				}
+				n++;
 			}
-
+			fin >> active[i];
+			fin.ignore();
 			current = current->next;
 			i++;
 		}
 		fin.close();
 	}
 	Node* current = lst2.head;
-	int i = 0;
 	fout.open(outputpath);
 	if (!fout.is_open()) {
 		cout << "can't create " << outputpath << " file ";
 	}
 	else {
+		int i = 0;
 		while (current != NULL) {
 			fout << current->student.StudentID << endl;
 			fout << current->student.StudentPass << endl;
@@ -1260,7 +1190,7 @@ void edit_Attendence(ofstream &fout,string inputpath, string outputpath,LinkedLi
 				fout << attendence[i][j] << endl;
 				j++;
 			}
-			fout << endl;
+			fout << active[i] << endl;
 			i++;
 			current = current->next;
 		}
