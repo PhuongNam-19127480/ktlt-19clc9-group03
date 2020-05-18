@@ -7,13 +7,15 @@ int main()
 	char base[101];
 	string outputpath;
 	LinkedList lst;
-	LinkedList lst2;
+	LinkedList lst2,lstCourse;
 	int count;
 	int attendence;
 	char inputpath[100];
-	int day_edit, month_edit, year_edit;
-	string class_View, courseID_View, studentID_View;
-	cout << "nhap vao nam hoc:" << endl;
+	//view_List_Of_Course2(lstCourse);
+	//main_View_Attendence_List_Of_Course();
+	//main_Export_Attendence_csv_File();
+	//main_View_Student_Of_Course();
+	/*cout << "nhap vao nam hoc:" << endl;
 	getline(cin, academic);
 	cout << "nhap vao hoc ki: " << endl;
 	getline(cin, semester);
@@ -75,7 +77,7 @@ int main()
 		{
 
 			//outputpath = Class;
-			outputpath = Class;
+			outputpath = current->schedule.classs;
 			outputpath.append("-");
 			outputpath.append(current->schedule.courseID);
 			outputpath.append(".txt");
@@ -93,12 +95,17 @@ int main()
 			count--;
 			current = current->next;
 			fin.close();
-		}
-
+		}*/
 		//view_Attendence_List_Of_Course( lst, lst2, class_View, courseID_View, Class, inputpath2);
-		edit_Attendence_Of_Course(fout,lst, lst2, class_View, courseID_View, Class,studentID_View,year_edit,month_edit,day_edit,attendence);
+		//edit_Attendence_Of_Course(fout,lst, lst2, class_View, courseID_View, Class,studentID_View,year_edit,month_edit,day_edit,attendence);
 		//export_Attendence_list_Of_Course(fout, lst, lst2, class_View, courseID_View, outputpath, Class,inputpath2);
 		//view_List_Student_Of_Course(lst, lst2, class_View,courseID_View);
-	}
+		//import_Scoreboard_Of_Course(lst, lst2, class_View, courseID_View, Class, inputpath2);
+		//viewLecturer(lst);
+		//edit_Grade_Of_a_Student(lst, lst2, Class);
+		//view_Scoreboard_Of_Course(lst, lst2, class_View, courseID_View, Class);
+		//view_Attendence_List_Of_Course(lst, lst2, class_View, courseID_View, Class, inputpath2);
+		//export_Grade_Of_Course(lst, lst2, Class);
+	//}
 	return 0;
 }
