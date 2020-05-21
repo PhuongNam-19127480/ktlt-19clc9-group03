@@ -479,14 +479,14 @@ int day_after_1_week(int day, int thang, int nam)
 	return day;
 }
 //Function(export_Attendence) use for export_Attendence_list_Of_Course Funtion 
-void export_Attendence(ofstream& fout, LinkedList lst2, LinkedList lst, Node* currentlst, string inputpath)
+void export_Attendence(ofstream& fout, LinkedList lst2, LinkedList lst, Node* currentlst, string inputPath)
 {
 	ifstream fin;
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	else {
 		Node* current = lst2.head;
@@ -663,7 +663,7 @@ void export_Attendence(ofstream& fout, LinkedList lst2, LinkedList lst, Node* cu
 //Ham 26 Search and view Attendence_List_Of_Course
 void view_Attendence_List_Of_Course(LinkedList lst, LinkedList lst2) {
 	Node* current = lst.head;
-	string class_View, courseID_View, Class,inputpath;
+	string class_View, courseID_View, Class,inputPath;
 	ifstream fin;
 	while (1) {
 		view_List_Of_Course(lst);
@@ -679,11 +679,11 @@ void view_Attendence_List_Of_Course(LinkedList lst, LinkedList lst2) {
 			while (1)
 			{
 				if (class_View == current->schedule.classs && courseID_View == current->schedule.courseID) {
-					inputpath = current->schedule.classs;
-					inputpath.append("-");
-					inputpath.append(current->schedule.courseID);
-					inputpath.append(".txt");
-					view_2(inputpath, lst2, lst, current);
+					inputPath = current->schedule.classs;
+					inputPath.append("-");
+					inputPath.append(current->schedule.courseID);
+					inputPath.append(".txt");
+					view_2(inputPath, lst2, lst, current);
 					current = lst.head;
 					break;
 				}
@@ -702,7 +702,7 @@ void view_Attendence_List_Of_Course(LinkedList lst, LinkedList lst2) {
 //Ham 27 export_Attendence_list_Of_Course
 void export_Attendence_list_Of_Course( LinkedList lst, LinkedList lst2) {
 	ofstream fout;
-	string class_View, courseID_View, outputpath, inputpath;
+	string class_View, courseID_View, outputpath, inputPath;
 	Node* current = lst.head;
 	while (1) {
 		view_List_Of_Course(lst);
@@ -718,10 +718,10 @@ void export_Attendence_list_Of_Course( LinkedList lst, LinkedList lst2) {
 			while (1)
 			{
 				if (class_View == current->schedule.classs && courseID_View == current->schedule.courseID) {
-					inputpath = current->schedule.classs;
-					inputpath.append("-");
-					inputpath.append(current->schedule.courseID);
-					inputpath.append(".txt");
+					inputPath = current->schedule.classs;
+					inputPath.append("-");
+					inputPath.append(current->schedule.courseID);
+					inputPath.append(".txt");
 					outputpath = "";
 					outputpath.append(current->schedule.classs);
 					outputpath.append("-");
@@ -735,7 +735,7 @@ void export_Attendence_list_Of_Course( LinkedList lst, LinkedList lst2) {
 					}
 					else
 					{
-						export_Attendence(fout, lst2, lst, current, inputpath);
+						export_Attendence(fout, lst2, lst, current, inputPath);
 						fout.close();
 						cout << "Export successfully\n";
 						current = lst.head;
@@ -764,7 +764,7 @@ void view_List_Of_Course(LinkedList lst) {
 }
 void view_List_Student_Of_Course(LinkedList lst, LinkedList lst2, string& class_View, string& courseID_View) {
 	Node* current = lst.head;
-	string inputpath;
+	string inputPath;
 	int attendence[100][100];
 	int active[100];
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
@@ -783,14 +783,14 @@ void view_List_Student_Of_Course(LinkedList lst, LinkedList lst2, string& class_
 			while (1)
 			{
 				if (class_View == current->schedule.classs && courseID_View == current->schedule.courseID) {
-					inputpath = current->schedule.classs;
-					inputpath.append("-");
-					inputpath.append(current->schedule.courseID);
-					inputpath.append(".txt");
-					fin.open(inputpath);
-					fin.open(inputpath);
+					inputPath = current->schedule.classs;
+					inputPath.append("-");
+					inputPath.append(current->schedule.courseID);
+					inputPath.append(".txt");
+					fin.open(inputPath);
+					fin.open(inputPath);
 					if (!fin.is_open()) {
-						cout << "can't open " << inputpath << " file";
+						cout << "can't open " << inputPath << " file";
 					}
 						Node* current = lst2.head;
 						int i = 0;
@@ -852,7 +852,12 @@ void view_List_Student_Of_Course(LinkedList lst, LinkedList lst2, string& class_
 						cout << current->student.StudentPass << endl;
 						cout << current->student.StudentName << endl;
 						cout << current->student.StudentDOB << endl;
-						cout << current->student.StudentGender << endl;
+						if (current->student.StudentGender == "0") {
+							cout << "Male\n";
+						}
+						else {
+							cout << "Female\n";
+						}
 						cout << endl;
 						current = current->next;
 					}
@@ -871,15 +876,15 @@ void view_List_Student_Of_Course(LinkedList lst, LinkedList lst2, string& class_
 		}
 	}
 }
-void view_2(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst)
+void view_2(string inputPath, LinkedList& lst2, LinkedList lst, Node* currentlst)
 {
 	ifstream fin;
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	else {
 		Node* current = lst2.head;
@@ -942,7 +947,12 @@ void view_2(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst
 		cout << current->student.StudentPass << endl;
 		cout << current->student.StudentName << endl;
 		cout << current->student.StudentDOB << endl;
-		cout << current->student.StudentGender << endl;
+		if (current->student.StudentGender == "0") {
+			cout << "Male\n";
+		}
+		else {
+			cout << "Female\n";
+		}
 	    cout << current->student.midterm << endl;
 		cout << current->student.final <<  endl;
 		cout << current->student.bonus <<  endl;
@@ -1030,16 +1040,16 @@ void view_2(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst
 
 }
 
-void edit_Attendence(ofstream &fout,string inputpath, string outputpath,LinkedList& lst2, LinkedList lst, Node* currentlst, string studentID_edit, int year_edit, int month_edit, int day_edit, int attend)
+void edit_Attendence(ofstream &fout,string inputPath, string outputpath,LinkedList& lst2, LinkedList lst, Node* currentlst, string studentID_edit, int year_edit, int month_edit, int day_edit, int attend)
 {
 	ifstream fin;
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int a = -100;
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	else {
 		Node* current = lst2.head;
@@ -1213,7 +1223,7 @@ void edit_Attendence(ofstream &fout,string inputpath, string outputpath,LinkedLi
 }
 void edit_Attendence_Of_Course(ofstream& fout, LinkedList lst, LinkedList lst2, string& class_View, string& courseID_View, string Class,string &studentID_edit,int &year_edit,int &month_edit,int &day_edit,int &attend) {
 	Node* current = lst.head;
-	string inputpath,outputpath;
+	string inputPath,outputpath;
 	ifstream fin;
 	while (1) {
 		view_List_Of_Course(lst);
@@ -1242,15 +1252,15 @@ void edit_Attendence_Of_Course(ofstream& fout, LinkedList lst, LinkedList lst2, 
 			while (1)
 			{
 				if (class_View == current->schedule.classs && courseID_View == current->schedule.courseID) {
-					inputpath = current->schedule.classs;
-					inputpath.append("-");
-					inputpath.append(current->schedule.courseID);
-					inputpath.append(".txt");
-					outputpath = inputpath;
-					view_2(inputpath, lst2, lst, current);
-					edit_Attendence(fout, inputpath, outputpath, lst2, lst, current,studentID_edit,year_edit,month_edit,day_edit,attend);
+					inputPath = current->schedule.classs;
+					inputPath.append("-");
+					inputPath.append(current->schedule.courseID);
+					inputPath.append(".txt");
+					outputpath = inputPath;
+					view_2(inputPath, lst2, lst, current);
+					edit_Attendence(fout, inputPath, outputpath, lst2, lst, current,studentID_edit,year_edit,month_edit,day_edit,attend);
 					cout << "\n After edit: \n";
-					view_2(inputpath, lst2, lst, current);
+					view_2(inputPath, lst2, lst, current);
 					current = lst.head;
 					break;
 				}
@@ -1266,7 +1276,7 @@ void edit_Attendence_Of_Course(ofstream& fout, LinkedList lst, LinkedList lst2, 
 		}
 	}
 }
-void import_Scoreboard(string inputpath, string outputpath, LinkedList& lst2, LinkedList lst, Node* currentlst) {
+void import_Scoreboard(string inputPath, string outputpath, LinkedList& lst2, LinkedList lst, Node* currentlst) {
 	ifstream fin;
 	ofstream fout; 
 	string temp1;
@@ -1331,9 +1341,9 @@ void import_Scoreboard(string inputpath, string outputpath, LinkedList& lst2, Li
 		}
 		fin.close();
 	}
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file \n";
+		cout << "can't open " << inputPath << " file \n";
 	}
 	else {
 		getline(fin, temp1, '\n');
@@ -1460,7 +1470,7 @@ void import_Scoreboard(string inputpath, string outputpath, LinkedList& lst2, Li
 	}
 	fout.close();
 }
-void import_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2, string& class_View, string& courseID_View, string Class, string& inputpath) {
+void import_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2, string& class_View, string& courseID_View, string Class, string& inputPath) {
 	Node* current = lst.head;
 	string outputpath;
 	ifstream fin;
@@ -1472,7 +1482,7 @@ void import_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2, string& class_
 		cout << "Enter CourseID of courese to import: ";
 		getline(cin, courseID_View);
 		cout << "Enter Scoreboard csv file: ";
-		getline(cin,inputpath);
+		getline(cin,inputPath);
 
 		if (class_View == "0" || courseID_View == "0") {
 			break;
@@ -1485,7 +1495,7 @@ void import_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2, string& class_
 					outputpath.append("-");
 					outputpath.append(current->schedule.courseID);
 					outputpath.append(".txt");
-					import_Scoreboard(inputpath, outputpath, lst2, lst, current);
+					import_Scoreboard(inputPath, outputpath, lst2, lst, current);
 					current = lst.head;
 					break;
 				}
@@ -1501,14 +1511,14 @@ void import_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2, string& class_
 		}
 	}
 }
-void view_Scoreboard(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst) {
+void view_Scoreboard(string inputPath, LinkedList& lst2, LinkedList lst, Node* currentlst) {
 	ifstream fin;
 	string temp1;
 	int attendence[100][100];
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	else {
 		Node* current = lst2.head;
@@ -1572,7 +1582,12 @@ void view_Scoreboard(string inputpath, LinkedList& lst2, LinkedList lst, Node* c
 			cout << current->student.StudentPass << endl;
 			cout << current->student.StudentName << endl;
 			cout << current->student.StudentDOB << endl;
-			cout << current->student.StudentGender << endl;
+			if (current->student.StudentGender == "0") {
+				cout << "Male\n";
+			}
+			else {
+				cout << "Female\n";
+			}
 			cout << current->student.midterm << endl;
 			cout << current->student.final << endl;
 			cout << current->student.bonus << endl;
@@ -1585,7 +1600,7 @@ void view_Scoreboard(string inputpath, LinkedList& lst2, LinkedList lst, Node* c
 void view_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2,string Class) {
 	cout << "\n view_Scoreboard_Of_Course function\n";
 	Node* current = lst.head;
-	string inputpath, class_View, courseID_View ;
+	string inputPath, class_View, courseID_View ;
 	ifstream fin;
 	while (1) {
 		view_List_Of_Course(lst);
@@ -1601,11 +1616,11 @@ void view_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2,string Class) {
 			while (1)
 			{
 				if (class_View == current->schedule.classs && courseID_View == current->schedule.courseID) {
-					inputpath = current->schedule.classs;
-					inputpath.append("-");
-					inputpath.append(current->schedule.courseID);
-					inputpath.append(".txt");
-					view_Scoreboard(inputpath, lst2, lst, current);
+					inputPath = current->schedule.classs;
+					inputPath.append("-");
+					inputPath.append(current->schedule.courseID);
+					inputPath.append(".txt");
+					view_Scoreboard(inputPath, lst2, lst, current);
 					current = lst.head;
 					break;
 				}
@@ -1621,16 +1636,16 @@ void view_Scoreboard_Of_Course(LinkedList lst, LinkedList lst2,string Class) {
 		}
 	}
 }
-void edit_Grade(string inputpath, LinkedList& lst2, LinkedList lst, Node* currentlst, string studentID_View) {
+void edit_Grade(string inputPath, LinkedList& lst2, LinkedList lst, Node* currentlst, string studentID_View) {
 	ifstream fin;
 	ofstream fout;
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int a = -100;
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	else {
 		Node* current = lst2.head;
@@ -1687,9 +1702,9 @@ void edit_Grade(string inputpath, LinkedList& lst2, LinkedList lst, Node* curren
 		fin.close();
 	}
 	Node* current = lst2.head;
-	fout.open(inputpath);
+	fout.open(inputPath);
 	if (!fout.is_open()) {
-		cout << "can't create " <<inputpath << " file ";
+		cout << "can't create " <<inputPath << " file ";
 	}
 	else {
 		int i = 0;
@@ -1805,7 +1820,7 @@ void edit_Grade_Of_a_Student(LinkedList lst, LinkedList lst2, string Class) {
 	cout << "\n edit_Grade_Of_a_Student\n";
 	string class_View; string courseID_View; string studentID_View;
 	Node* current = lst.head;
-	string inputpath;
+	string inputPath;
 	while (1) {
 		view_List_Of_Course(lst);
 		cout << "0. back\n";
@@ -1820,13 +1835,13 @@ void edit_Grade_Of_a_Student(LinkedList lst, LinkedList lst2, string Class) {
 			while (1)
 			{
 				if (class_View == current->schedule.classs && courseID_View == current->schedule.courseID) {
-					inputpath = current->schedule.classs;
-					inputpath.append("-");
-					inputpath.append(current->schedule.courseID);
-					inputpath.append(".txt");
+					inputPath = current->schedule.classs;
+					inputPath.append("-");
+					inputPath.append(current->schedule.courseID);
+					inputPath.append(".txt");
 					cout << "Enter Student ID to edit grade: ";
 					getline(cin, studentID_View);
-					edit_Grade(inputpath, lst2, lst, current, studentID_View);
+					edit_Grade(inputPath, lst2, lst, current, studentID_View);
 					current = lst.head;
 					break;
 				}
@@ -1842,15 +1857,15 @@ void edit_Grade_Of_a_Student(LinkedList lst, LinkedList lst2, string Class) {
 		}
 	}
 }
-void export_Grade(string inputpath,string outputpath, LinkedList& lst2, LinkedList lst, Node* currentlst) {
+void export_Grade(string inputPath,string outputpath, LinkedList& lst2, LinkedList lst, Node* currentlst) {
 	ifstream fin;
 	ofstream fout;
 	string temp1;
 	int attendence[100][100];
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	else {
 		Node* current = lst2.head;
@@ -1933,7 +1948,7 @@ void export_Grade_Of_Course(LinkedList lst, LinkedList lst2, string Class) {
 	cout << "\n export_Grade_Of_Course function\n";
 	string class_View; string courseID_View; string studentID_View;
 	Node* current = lst.head;
-	string inputpath,outputpath;
+	string inputPath,outputpath;
 	while (1) {
 		view_List_Of_Course(lst);
 		cout << "0. back\n";
@@ -1948,10 +1963,10 @@ void export_Grade_Of_Course(LinkedList lst, LinkedList lst2, string Class) {
 			while (1)
 			{
 				if (class_View == current->schedule.classs && courseID_View == current->schedule.courseID) {
-					inputpath = current->schedule.classs;
-					inputpath.append("-");
-					inputpath.append(current->schedule.courseID);
-					inputpath.append(".txt");
+					inputPath = current->schedule.classs;
+					inputPath.append("-");
+					inputPath.append(current->schedule.courseID);
+					inputPath.append(".txt");
 					outputpath = current->schedule.classs;
 					outputpath.append("-");
 					outputpath.append(current->schedule.courseID);
@@ -1960,7 +1975,7 @@ void export_Grade_Of_Course(LinkedList lst, LinkedList lst2, string Class) {
 					outputpath.append("-");
 					outputpath.append("Export");
 					outputpath.append(".csv");
-					export_Grade(inputpath, outputpath,lst2, lst, current);
+					export_Grade(inputPath, outputpath,lst2, lst, current);
 					current = lst.head;
 					break;
 				}
@@ -1988,7 +2003,7 @@ void viewLecturer(LinkedList lst) {
 	Lecturer lecturer;
 	fin >> n;
 	string username, password, fullname, degree;
-	int gender;
+	int gender=0;
 	fin.ignore();
 	int i = 0;
 	getline(fin, lecturer.username, '\n');
@@ -2053,11 +2068,8 @@ void view_List_Of_Course2(LinkedList &lstCourse) {
 	getline(fin, course.courseID, '\n');
 	lstCourse.head = createNode_Course(course);
 	Node* current = lstCourse.head;
-	while (1) {
+	while (!fin.eof()) {
 		getline(fin, course.classs, '-');
-		if (course.classs == "123") {
-			break;
-		}
 		getline(fin, course.courseID, '\n');
 		Node* p = createNode_Course(course);
 		current->next = p;
@@ -2073,8 +2085,8 @@ void view_List_Of_Course2(LinkedList &lstCourse) {
 }
 void main_View_Attendence_List_Of_Course()
 {
-	LinkedList lstCourse,lst2,lst;
-	string class_View, courseID_View, Class, inputpath;
+	LinkedList lstCourse;
+	string class_View, courseID_View, Class, inputPath;
 	ifstream fin;
 	while (1) {
 		view_List_Of_Course2(lstCourse);
@@ -2091,12 +2103,12 @@ void main_View_Attendence_List_Of_Course()
 			while (1)
 			{
 				if (class_View == current->course.classs && courseID_View == current->course.courseID) {
-					inputpath="C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
-					inputpath.append(current->course.classs);
-					inputpath.append("-");
-					inputpath.append(current->course.courseID);
-					inputpath.append(".txt");
-					view_3(inputpath);
+					inputPath="C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
+					inputPath.append(current->course.classs);
+					inputPath.append("-");
+					inputPath.append(current->course.courseID);
+					inputPath.append(".txt");
+					view_3(inputPath);
 					current = lstCourse.head;
 					break;
 				}
@@ -2112,7 +2124,7 @@ void main_View_Attendence_List_Of_Course()
 		}
 	}
 }
-void view_3(string inputpath)
+void view_3(string inputPath)
 {
 	ifstream fin;
 	LinkedList lst2,lst; 
@@ -2122,9 +2134,9 @@ void view_3(string inputpath)
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	int i = 0;
 	int j = 0;
@@ -2191,9 +2203,11 @@ void view_3(string inputpath)
 	fin >> active[i];
 	fin.ignore();
 	i++;
+	cout << "\n" << student.StudentID << "\n";
 	while (!fin.eof()) {
 		j = 0;
 		getline(fin, student.StudentID, '\n');
+		cout << "\n" <<student.StudentID << "\n";
 		getline(fin, student.StudentID, '\n');
 		getline(fin, student.StudentPass, '\n');
 		getline(fin, student.StudentName, '\n');
@@ -2278,7 +2292,12 @@ void view_3(string inputpath)
 		cout << current->student.StudentPass << endl;
 		cout << current->student.StudentName << endl;
 		cout << current->student.StudentDOB << endl;
-		cout << current->student.StudentGender << endl;
+		if (current->student.StudentGender == "0") {
+			cout << "Male\n";
+		}
+		else {
+			cout << "Female\n";
+		}
 		int day = string_to_int(currentlst->schedule.startDay);
 		int month = string_to_int(currentlst->schedule.startMonth);
 		int year = string_to_int(currentlst->schedule.startYear);
@@ -2365,8 +2384,8 @@ void view_3(string inputpath)
 
 }
 void main_Export_Attendence_csv_File() {
-	LinkedList lstCourse, lst2, lst;
-	string class_View, courseID_View, Class, inputpath,outputpath;
+	LinkedList lstCourse;
+	string class_View, courseID_View, Class, inputPath,outputpath;
 	ifstream fin;
 	while (1) {
 		view_List_Of_Course2(lstCourse);
@@ -2383,11 +2402,11 @@ void main_Export_Attendence_csv_File() {
 			while (1)
 			{
 				if (class_View == current->course.classs && courseID_View == current->course.courseID) {
-					inputpath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
-					inputpath.append(current->course.classs);
-					inputpath.append("-");
-					inputpath.append(current->course.courseID);
-					inputpath.append(".txt");
+					inputPath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
+					inputPath.append(current->course.classs);
+					inputPath.append("-");
+					inputPath.append(current->course.courseID);
+					inputPath.append(".txt");
 					outputpath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
 					outputpath.append(current->course.classs);
 					outputpath.append("-");
@@ -2395,7 +2414,7 @@ void main_Export_Attendence_csv_File() {
 					outputpath.append("-");
 					outputpath.append("Attendence");
 					outputpath.append(".csv");
-					export_3(inputpath,outputpath);
+					export_3(inputPath,outputpath);
 					current = lstCourse.head;
 					break;
 				}
@@ -2411,7 +2430,7 @@ void main_Export_Attendence_csv_File() {
 		}
 	}
 }
-void export_3(string inputpath,string outputpath)
+void export_3(string inputPath,string outputpath)
 {
 	ifstream fin;
 	ofstream fout;
@@ -2422,9 +2441,9 @@ void export_3(string inputpath,string outputpath)
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 		int i = 0;
 		int j = 0;
@@ -2672,7 +2691,7 @@ void export_3(string inputpath,string outputpath)
 	cout << "Export succesfully\n";
 	fout.close();
 }
-void view_Student(string inputpath) {
+void view_Student(string inputPath) {
 	ifstream fin;
 	LinkedList lst2, lst;
 	Student student;
@@ -2681,9 +2700,9 @@ void view_Student(string inputpath) {
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	int i = 0;
 	int j = 0;
@@ -2837,7 +2856,12 @@ void view_Student(string inputpath) {
 		cout << current->student.StudentPass << endl;
 		cout << current->student.StudentName << endl;
 		cout << current->student.StudentDOB << endl;
-		cout << current->student.StudentGender << endl;
+		if (current->student.StudentGender == "0") {
+			cout << "Male\n";
+		}
+		else {
+			cout << "Female\n";
+		}
 		cout << active[i];
 		cout << endl;
 		i++;
@@ -2846,8 +2870,8 @@ void view_Student(string inputpath) {
 	}
 }
 void main_View_Student_Of_Course() {
-	LinkedList lstCourse, lst2, lst;
-	string class_View, courseID_View, inputpath;
+	LinkedList lstCourse;
+	string class_View, courseID_View, inputPath;
 	ifstream fin;
 	while (1) {
 		view_List_Of_Course2(lstCourse);
@@ -2864,12 +2888,12 @@ void main_View_Student_Of_Course() {
 			while (1)
 			{
 				if (class_View == current->course.classs && courseID_View == current->course.courseID) {
-					inputpath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
-					inputpath.append(current->course.classs);
-					inputpath.append("-");
-					inputpath.append(current->course.courseID);
-					inputpath.append(".txt");
-					view_Student(inputpath);
+					inputPath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
+					inputPath.append(current->course.classs);
+					inputPath.append("-");
+					inputPath.append(current->course.courseID);
+					inputPath.append(".txt");
+					view_Student(inputPath);
 					current = lstCourse.head;
 					break;
 				}
@@ -2886,16 +2910,16 @@ void main_View_Student_Of_Course() {
 	}
 }
 void main_Edit_Attendence() {
-	LinkedList lstCourse, lst2, lst;
-	string class_View, courseID_View, inputpath;
+	LinkedList lstCourse;
+	string class_View, courseID_View, inputPath;
 	ifstream fin;
 	while (1) {
 		view_List_Of_Course2(lstCourse);
 		Node* current = lstCourse.head;
 		cout << "0. back\n";
-		cout << "Enter Class of courese to view:";
+		cout << "Enter Class of courese to edit:";
 		getline(cin, class_View);
-		cout << "Enter CourseID of courese to view:";
+		cout << "Enter CourseID of courese to edit:";
 		getline(cin, courseID_View);
 		if (class_View == "0" || courseID_View == "0") {
 			break;
@@ -2904,12 +2928,12 @@ void main_Edit_Attendence() {
 			while (1)
 			{
 				if (class_View == current->course.classs && courseID_View == current->course.courseID) {
-					inputpath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
-					inputpath.append(current->course.classs);
-					inputpath.append("-");
-					inputpath.append(current->course.courseID);
-					inputpath.append(".txt");
-					view_Student(inputpath);
+					inputPath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
+					inputPath.append(current->course.classs);
+					inputPath.append("-");
+					inputPath.append(current->course.courseID);
+					inputPath.append(".txt");
+					edit_Attendence2(inputPath);
 					current = lstCourse.head;
 					break;
 				}
@@ -2925,21 +2949,25 @@ void main_Edit_Attendence() {
 		}
 	}
 }
-void edit_Attendence2(string inputpath) {
+void edit_Attendence2(string inputPath) {
 	ifstream fin;
 	ofstream fout;
 	LinkedList lst2, lst;
 	Student student;
 	Schedule schedule;
 	string studentID_View;
+	int year_edit=0, month_edit=0, day_edit=0,attend;
+	int a = -100;
+	int b = -100;
 	cout << "Enter Student ID to edit: ";
 	getline(cin, studentID_View);
+	
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
 	int attendence[100][100];
 	int active[100];
-	fin.open(inputpath);
+	fin.open(inputPath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputPath << " file";
 	}
 	int i = 0;
 	int j = 0;
@@ -3085,13 +3113,347 @@ void edit_Attendence2(string inputpath) {
 	}
 	fin.close();
 
-
+	
 	currentlst = lst.head;
 	current = lst2.head;
-	fout.open(inputpath);
+	fout.open(inputPath);
 	if (!fout.is_open()) {
-		cout << "can't save " << outputpath << " file\n";
-		return;
+		cout << "can't save " << inputPath << " file\n";
+	}
+	i = 0;
+	while (current->next != NULL) {
+		if (current->student.StudentID==studentID_View) {
+			cout << "Enter year to edit: ";
+			cin >> year_edit;
+			cout << "Enter month to edit: ";
+			cin >> month_edit;
+			cout << "Enter day to edit: ";
+			cin >> day_edit;
+			b = 100;
+		}
+		fout << current->student.StudentID << endl;
+		fout << current->student.StudentPass << endl;
+		fout << current->student.StudentName << endl;
+		fout << current->student.StudentDOB << endl;
+		fout << current->student.StudentGender << endl;
+		fout << current->student.midterm << endl;
+		fout << current->student.final << endl;
+		fout << current->student.bonus << endl;
+		fout << current->student.total << endl;
+		int day = string_to_int(currentlst->schedule.startDay);
+		int month = string_to_int(currentlst->schedule.startMonth);
+		int year = string_to_int(currentlst->schedule.startYear);
+		int temp = string_to_int(currentlst->schedule.EndDay);
+		fout << year << " ";
+		if (month < 10)
+		{
+			fout << "0" << month << " ";
+		}
+		else
+		{
+			fout << month << " ";
+		}
+		if (day < 10)
+		{
+			fout << "0" << day << " ";
+		}
+		else
+		{
+			fout << day << " ";
+		}
+		fout << currentlst->schedule.starthour << " ";
+		fout << currentlst->schedule.startminute << " ";
+		fout << currentlst->schedule.endhour << " ";
+		fout << currentlst->schedule.endminute << " ";
+		int j = 0;
+		if (year_edit == year && month_edit == month && day_edit == day&& (current->student.StudentID == studentID_View)) {
+				cout << "Enter Attendence for this day: ";
+				cin >> attend;
+				attendence[i][j] = attend;
+				a = 100;
+			
+		}
+		fout << attendence[i][j] << endl;
+		j++;
+		while (1) //&& month != string_to_int(currentlst->schedule.endmonth))
+		{
+			int temp = day;
+			temp = temp + 7;
+			day = day_after_1_week(day, month, year);
+			if (month == 12)
+			{
+				if (temp > day_of_month(month, year))
+				{
+					month = 1;
+				}
+
+			}
+			else
+			{
+				if (temp > day_of_month(month, year))
+				{
+					month = month + 1;
+				}
+			}
+
+
+			fout << year << " ";
+			if (month < 10)
+			{
+				fout << "0" << month << " ";
+			}
+			else
+			{
+				fout << month << " ";
+			}
+			if (day < 10)
+			{
+				fout << "0" << day << " ";
+			}
+			else
+			{
+				fout << day << " ";
+			}
+			fout << currentlst->schedule.starthour << " ";
+			fout << currentlst->schedule.startminute << " ";
+			fout << currentlst->schedule.endhour << " ";
+			fout << currentlst->schedule.endminute << " ";
+			if (year_edit == year && month_edit == month && day_edit == day && (current->student.StudentID == studentID_View)) {
+					cout << "Enter Attendence for this day: ";
+					cin >> attend;
+					attendence[i][j] = attend;
+					a = 100;
+				
+			}
+			fout << attendence[i][j] << endl;
+			if (day == string_to_int(currentlst->schedule.EndDay) && month == string_to_int(currentlst->schedule.Endmonth)) {
+				break;
+			}
+			j++;
+		}
+			fout << active[i];
+			fout << endl;
+			i++;
+			current = current->next;
+			fout << endl;
+	}if (b == -100) {
+		cout << "\nStudent ID not exits\n";
+		cout << "\n Please Entered again: \n";
+	}
+	if (a == 100) {
+		cout << "\nEdit successfully\n";
+    }
+	else {
+		if (b != -100) {
+			cout << "\n day or month or year you Entered not exits\n";
+			cout << "\n Please Entered again: \n";
+		}
+	}
+	fout.close();
+}
+void import_Score_Board2(string inputPath) {
+	ifstream fin;
+	ofstream fout;
+	LinkedList lst2, lst;
+	Student student;
+	Schedule schedule;
+	string temp1,tempInput=inputPath;
+	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
+	int attendence[100][100];
+	int active[100];
+	fin.open(inputPath);
+	if (!fin.is_open()) {
+		cout << "can't open " << inputPath << " file";
+	}
+	int i = 0;
+	int j = 0;
+	getline(fin, student.StudentID, '\n');
+	getline(fin, student.StudentPass, '\n');
+	getline(fin, student.StudentName, '\n');
+	getline(fin, student.StudentDOB, '\n');
+	getline(fin, student.StudentGender, '\n');
+	fin >> student.midterm;
+	fin >> student.final;
+	fin >> student.bonus;
+	fin >> student.total;
+	Node* p = new Node;
+	p->student.StudentID = student.StudentID;
+	p->student.StudentPass = student.StudentPass;
+	p->student.StudentName = student.StudentName;
+	p->student.StudentDOB = student.StudentDOB;
+	p->student.StudentGender = student.StudentGender;
+	p->student.midterm = student.midterm;
+	p->student.final = student.final;
+	p->student.bonus = student.bonus;
+	p->student.total = student.total;
+	p->next = NULL;
+	lst2.head = p;
+	Node* current = lst2.head;
+	fin.ignore();
+	getline(fin, schedule.startYear, ' ');
+	getline(fin, schedule.startMonth, ' ');
+	getline(fin, schedule.startDay, ' ');
+	getline(fin, schedule.starthour, ' ');
+	getline(fin, schedule.startminute, ' ');
+	getline(fin, schedule.endhour, ' ');
+	getline(fin, schedule.endminute, ' ');
+	p = new Node;
+	p->schedule.startDay = schedule.startDay;
+	p->schedule.startMonth = schedule.startMonth;
+	p->schedule.startYear = schedule.startYear;
+	p->schedule.starthour = schedule.starthour;
+	p->schedule.startminute = schedule.startminute;
+	p->schedule.endhour = schedule.endhour;
+	p->schedule.endminute = schedule.endminute;
+	p->next = NULL;
+	lst.head = p;
+	Node* currentlst = lst.head;
+	fin >> attendence[i][j];
+	fin.ignore();
+	j++;
+	int n = 1;
+	while (n != 10) {
+		getline(fin, year1, ' ');
+		getline(fin, month1, ' ');
+		getline(fin, day1, ' ');
+		getline(fin, startHour1, ' ');
+		getline(fin, startMinute1, ' ');
+		getline(fin, endHour1, ' ');
+		getline(fin, endMinute1, ' ');
+		fin >> attendence[i][j];
+		if (n < 9) {
+			fin.ignore();
+		}
+		j++;
+		n++;
+	}
+	fin >> active[i];
+	fin.ignore();
+	i++;
+	while (!fin.eof()) {
+		j = 0;
+		getline(fin, student.StudentID, '\n');
+		getline(fin, student.StudentID, '\n');
+		getline(fin, student.StudentPass, '\n');
+		getline(fin, student.StudentName, '\n');
+		getline(fin, student.StudentDOB, '\n');
+		getline(fin, student.StudentGender, '\n');
+		fin >> student.midterm;
+		fin >> student.final;
+		fin >> student.bonus;
+		fin >> student.total;
+		Node* p = new Node;
+		p->student.StudentID = student.StudentID;
+		p->student.StudentPass = student.StudentPass;
+		p->student.StudentName = student.StudentName;
+		p->student.StudentDOB = student.StudentDOB;
+		p->student.StudentGender = student.StudentGender;
+		p->student.midterm = student.midterm;
+		p->student.final = student.final;
+		p->student.bonus = student.bonus;
+		p->student.total = student.total;
+		p->next = NULL;
+		current->next = p;
+		current = current->next;
+		fin.ignore();
+		getline(fin, year1, ' ');
+		getline(fin, month1, ' ');
+		getline(fin, day1, ' ');
+		getline(fin, startHour1, ' ');
+		getline(fin, startMinute1, ' ');
+		getline(fin, endHour1, ' ');
+		getline(fin, endMinute1, ' ');
+		fin >> attendence[i][j];
+		fin.ignore();
+		j++;
+		int n = 1;
+		while (n != 10) {
+			if (n == 9) {
+				getline(fin, schedule.EndYear, ' ');
+				getline(fin, schedule.Endmonth, ' ');
+				getline(fin, schedule.EndDay, ' ');
+				p = new Node;
+				p->schedule.startDay = schedule.startDay;
+				p->schedule.startMonth = schedule.startMonth;
+				p->schedule.startYear = schedule.startYear;
+				p->schedule.EndDay = schedule.EndDay;
+				p->schedule.Endmonth = schedule.Endmonth;
+				p->schedule.EndYear = schedule.EndYear;
+				p->schedule.starthour = schedule.starthour;
+				p->schedule.startminute = schedule.startminute;
+				p->schedule.endhour = schedule.endhour;
+				p->schedule.endminute = schedule.endminute;
+				p->next = NULL;
+				lst.head = p;
+				Node* currentlst = lst.head;
+			}
+			else {
+				getline(fin, year1, ' ');
+				getline(fin, month1, ' ');
+				getline(fin, day1, ' ');
+			}
+			getline(fin, startHour1, ' ');
+			getline(fin, startMinute1, ' ');
+			getline(fin, endHour1, ' ');
+			getline(fin, endMinute1, ' ');
+			fin >> attendence[i][j];
+			if (n < 9) {
+				fin.ignore();
+			}
+			j++;
+			n++;
+		}
+		fin >> active[i];
+		fin.ignore();
+		i++;
+	}
+	fin.close();
+	cout << "\n Enter Link to Score Board csv flie: ";
+	getline(cin, inputPath);
+	fin.open(inputPath);
+	if (!fin.is_open()) {
+		cout << "can't open " << inputPath << " file";
+	}
+	else {
+		getline(fin, temp1, '\n');
+		Node* current = lst2.head;
+		char a;
+		while (current->next != NULL) {
+			getline(fin, temp1, ',');
+			getline(fin, temp1, ',');
+			if (temp1 != current->student.StudentID) {
+				cout << "\n Student ID: "<< temp1 <<" not exist in Course\n";
+				cout << "\n Please Enter Link again\n";
+				return;
+			}
+			getline(fin, temp1, ',');
+			fin >> current->student.midterm;
+			//cout << "\n" << current->student.midterm << "\n";
+			fin.ignore();
+			fin >> a;
+			fin >> current->student.final;
+		//	cout << "\n" << current->student.final << "\n";
+			current->student.final += int(a - '0');
+			fin.ignore();
+			fin >> a;
+			fin >> current->student.bonus;
+			current->student.bonus += int(a - '0');
+			fin.ignore();
+			fin >> a;
+			fin >> current->student.total;
+			current->student.total += int(a - '0');
+			fin.ignore();
+			current = current->next;
+		}
+		cout << "Import sucessfully\n";
+	}
+	fin.close();
+	currentlst = lst.head;
+	current = lst2.head;
+	inputPath = tempInput;
+	fout.open(inputPath);
+	if (!fout.is_open()) {
+		cout << "can't save " << inputPath << " file\n";
 	}
 	i = 0;
 	while (current->next != NULL) {
@@ -3099,6 +3461,327 @@ void edit_Attendence2(string inputpath) {
 		fout << current->student.StudentPass << endl;
 		fout << current->student.StudentName << endl;
 		fout << current->student.StudentDOB << endl;
+		fout << current->student.StudentGender << endl;
+		fout << current->student.midterm << endl;
+		fout << current->student.final << endl;
+		fout << current->student.bonus << endl;
+		fout << current->student.total << endl;
+		int day = string_to_int(currentlst->schedule.startDay);
+		int month = string_to_int(currentlst->schedule.startMonth);
+		int year = string_to_int(currentlst->schedule.startYear);
+		int temp = string_to_int(currentlst->schedule.EndDay);
+		fout << year << " ";
+		if (month < 10)
+		{
+			fout << "0" << month << " ";
+		}
+		else
+		{
+			fout << month << " ";
+		}
+		if (day < 10)
+		{
+			fout << "0" << day << " ";
+		}
+		else
+		{
+			fout << day << " ";
+		}
+		fout << currentlst->schedule.starthour << " ";
+		fout << currentlst->schedule.startminute << " ";
+		fout << currentlst->schedule.endhour << " ";
+		fout << currentlst->schedule.endminute << " ";
+		int j = 0;
+		fout << attendence[i][j] << endl;
+		j++;
+		while (1) //&& month != string_to_int(currentlst->schedule.endmonth))
+		{
+			int temp = day;
+			temp = temp + 7;
+			day = day_after_1_week(day, month, year);
+			if (month == 12)
+			{
+				if (temp > day_of_month(month, year))
+				{
+					month = 1;
+				}
+
+			}
+			else
+			{
+				if (temp > day_of_month(month, year))
+				{
+					month = month + 1;
+				}
+			}
+
+
+			fout << year << " ";
+			if (month < 10)
+			{
+				fout << "0" << month << " ";
+			}
+			else
+			{
+				fout << month << " ";
+			}
+			if (day < 10)
+			{
+				fout << "0" << day << " ";
+			}
+			else
+			{
+				fout << day << " ";
+			}
+			fout << currentlst->schedule.starthour << " ";
+			fout << currentlst->schedule.startminute << " ";
+			fout << currentlst->schedule.endhour << " ";
+			fout << currentlst->schedule.endminute << " ";
+
+			fout << attendence[i][j] << endl;
+			if (day == string_to_int(currentlst->schedule.EndDay) && month == string_to_int(currentlst->schedule.Endmonth)) {
+				break;
+			}
+			j++;
+		}
+		fout << active[i];
+		fout << endl;
+		i++;
+		current = current->next;
+		fout << endl;
+	}
+	fout.close();
+}
+void main_import_ScoreBoard()
+{
+	LinkedList lstCourse;
+	string class_View, courseID_View, inputPath;
+	ifstream fin;
+	while (1) {
+		view_List_Of_Course2(lstCourse);
+		Node* current = lstCourse.head;
+		cout << "0. back\n";
+		cout << "Enter Class of courese to import:";
+		getline(cin, class_View);
+		cout << "Enter CourseID of courese to import:";
+		getline(cin, courseID_View);
+		if (class_View == "0" || courseID_View == "0") {
+			break;
+		}
+		else {
+			while (1)
+			{
+				if (class_View == current->course.classs && courseID_View == current->course.courseID) {
+					inputPath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
+					inputPath.append(current->course.classs);
+					inputPath.append("-");
+					inputPath.append(current->course.courseID);
+					inputPath.append(".txt");
+					import_Score_Board2(inputPath);
+					current = lstCourse.head;
+					break;
+				}
+				else {
+					current = current->next;
+				}
+				if (current == NULL) {
+					cout << "Class or Course is not exist\n\n";
+					current = lstCourse.head;
+					break;
+				}
+			}
+		}
+	}
+}
+void edit_Grade2(string inputPath) {
+	ifstream fin;
+	ofstream fout;
+	LinkedList lst2, lst;
+	Student student;
+	Schedule schedule;
+	string temp1, tempInput = inputPath;
+	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
+	int attendence[100][100],a=-100,b=-100;
+	int active[100];
+	string studentID_View;
+	cout << "\nEnter Student ID to edit grade: ";
+	getline(cin, studentID_View);
+	fin.open(inputPath);
+	if (!fin.is_open()) {
+		cout << "can't open " << inputPath << " file";
+	}
+	int i = 0;
+	int j = 0;
+	getline(fin, student.StudentID, '\n');
+	getline(fin, student.StudentPass, '\n');
+	getline(fin, student.StudentName, '\n');
+	getline(fin, student.StudentDOB, '\n');
+	getline(fin, student.StudentGender, '\n');
+	fin >> student.midterm;
+	fin >> student.final;
+	fin >> student.bonus;
+	fin >> student.total;
+	Node* p = new Node;
+	p->student.StudentID = student.StudentID;
+	p->student.StudentPass = student.StudentPass;
+	p->student.StudentName = student.StudentName;
+	p->student.StudentDOB = student.StudentDOB;
+	p->student.StudentGender = student.StudentGender;
+	p->student.midterm = student.midterm;
+	p->student.final = student.final;
+	p->student.bonus = student.bonus;
+	p->student.total = student.total;
+	p->next = NULL;
+	lst2.head = p;
+	Node* current = lst2.head;
+	fin.ignore();
+	getline(fin, schedule.startYear, ' ');
+	getline(fin, schedule.startMonth, ' ');
+	getline(fin, schedule.startDay, ' ');
+	getline(fin, schedule.starthour, ' ');
+	getline(fin, schedule.startminute, ' ');
+	getline(fin, schedule.endhour, ' ');
+	getline(fin, schedule.endminute, ' ');
+	p = new Node;
+	p->schedule.startDay = schedule.startDay;
+	p->schedule.startMonth = schedule.startMonth;
+	p->schedule.startYear = schedule.startYear;
+	p->schedule.starthour = schedule.starthour;
+	p->schedule.startminute = schedule.startminute;
+	p->schedule.endhour = schedule.endhour;
+	p->schedule.endminute = schedule.endminute;
+	p->next = NULL;
+	lst.head = p;
+	Node* currentlst = lst.head;
+	fin >> attendence[i][j];
+	fin.ignore();
+	j++;
+	int n = 1;
+	while (n != 10) {
+		getline(fin, year1, ' ');
+		getline(fin, month1, ' ');
+		getline(fin, day1, ' ');
+		getline(fin, startHour1, ' ');
+		getline(fin, startMinute1, ' ');
+		getline(fin, endHour1, ' ');
+		getline(fin, endMinute1, ' ');
+		fin >> attendence[i][j];
+		if (n < 9) {
+			fin.ignore();
+		}
+		j++;
+		n++;
+	}
+	fin >> active[i];
+	fin.ignore();
+	i++;
+	while (!fin.eof()) {
+		j = 0;
+		getline(fin, student.StudentID, '\n');
+		getline(fin, student.StudentID, '\n');
+		getline(fin, student.StudentPass, '\n');
+		getline(fin, student.StudentName, '\n');
+		getline(fin, student.StudentDOB, '\n');
+		getline(fin, student.StudentGender, '\n');
+		fin >> student.midterm;
+		fin >> student.final;
+		fin >> student.bonus;
+		fin >> student.total;
+		Node* p = new Node;
+		p->student.StudentID = student.StudentID;
+		p->student.StudentPass = student.StudentPass;
+		p->student.StudentName = student.StudentName;
+		p->student.StudentDOB = student.StudentDOB;
+		p->student.StudentGender = student.StudentGender;
+		p->student.midterm = student.midterm;
+		p->student.final = student.final;
+		p->student.bonus = student.bonus;
+		p->student.total = student.total;
+		p->next = NULL;
+		current->next = p;
+		current = current->next;
+		fin.ignore();
+		getline(fin, year1, ' ');
+		getline(fin, month1, ' ');
+		getline(fin, day1, ' ');
+		getline(fin, startHour1, ' ');
+		getline(fin, startMinute1, ' ');
+		getline(fin, endHour1, ' ');
+		getline(fin, endMinute1, ' ');
+		fin >> attendence[i][j];
+		fin.ignore();
+		j++;
+		int n = 1;
+		while (n != 10) {
+			if (n == 9) {
+				getline(fin, schedule.EndYear, ' ');
+				getline(fin, schedule.Endmonth, ' ');
+				getline(fin, schedule.EndDay, ' ');
+				p = new Node;
+				p->schedule.startDay = schedule.startDay;
+				p->schedule.startMonth = schedule.startMonth;
+				p->schedule.startYear = schedule.startYear;
+				p->schedule.EndDay = schedule.EndDay;
+				p->schedule.Endmonth = schedule.Endmonth;
+				p->schedule.EndYear = schedule.EndYear;
+				p->schedule.starthour = schedule.starthour;
+				p->schedule.startminute = schedule.startminute;
+				p->schedule.endhour = schedule.endhour;
+				p->schedule.endminute = schedule.endminute;
+				p->next = NULL;
+				lst.head = p;
+				Node* currentlst = lst.head;
+			}
+			else {
+				getline(fin, year1, ' ');
+				getline(fin, month1, ' ');
+				getline(fin, day1, ' ');
+			}
+			getline(fin, startHour1, ' ');
+			getline(fin, startMinute1, ' ');
+			getline(fin, endHour1, ' ');
+			getline(fin, endMinute1, ' ');
+			fin >> attendence[i][j];
+			if (n < 9) {
+				fin.ignore();
+			}
+			j++;
+			n++;
+		}
+		fin >> active[i];
+		fin.ignore();
+		i++;
+	}
+	fin.close();
+	currentlst = lst.head;
+	current = lst2.head;
+	fout.open(inputPath);
+	if (!fout.is_open()) {
+		cout << "can't save " << inputPath << " file\n";
+	}
+	i = 0;
+	while (current->next != NULL) {
+		fout << current->student.StudentID << endl;
+		fout << current->student.StudentPass << endl;
+		fout << current->student.StudentName << endl;
+		fout << current->student.StudentDOB << endl;
+		fout << current->student.StudentGender << endl;
+		if (studentID_View == current->student.StudentID) {
+			cout << "\nEnter new student.midterm Score: ";
+			cin >> current->student.midterm;
+			cout << "\nEnter new student.final Score: ";
+			cin >> current->student.final;
+			cout << "\nEnter new student.bonus Score: ";
+			cin >> current->student.bonus;
+			cout << "\nEnter new student.total Score: ";
+			cin >> current->student.total;
+			cin.ignore();
+			b = 100;
+		}
+		fout << current->student.midterm << endl;
+		fout << current->student.final << endl;
+		fout << current->student.bonus << endl;
+		fout << current->student.total << endl;
 		int day = string_to_int(currentlst->schedule.startDay);
 		int month = string_to_int(currentlst->schedule.startMonth);
 		int year = string_to_int(currentlst->schedule.startYear);
@@ -3171,19 +3854,352 @@ void edit_Attendence2(string inputpath) {
 			fout << currentlst->schedule.endhour << " ";
 			fout << currentlst->schedule.endminute << " ";
 			fout << attendence[i][j] << endl;
-			j++;
 			if (day == string_to_int(currentlst->schedule.EndDay) && month == string_to_int(currentlst->schedule.Endmonth)) {
 				break;
 			}
-
+			j++;
 		}
-
 		fout << active[i];
 		fout << endl;
 		i++;
 		current = current->next;
 		fout << endl;
 	}
-	cout << "Export succesfully\n";
-	fout.close();
+	if (b == -100) {
+		cout << "\nStudent ID not exits\n";
+		cout << "\n Please Entered again: \n";
+	}
+	else {
+		cout << "\nEdit grade successfully\n";
+	}
+}
+void main_Edit_Grade() {
+	LinkedList lstCourse;
+	string class_View, courseID_View, inputPath;
+	ifstream fin;
+	while (1) {
+		view_List_Of_Course2(lstCourse);
+		Node* current = lstCourse.head;
+		cout << "0. back\n";
+		cout << "Enter Class of courese to edit:";
+		getline(cin, class_View);
+		cout << "Enter CourseID of courese to edit:";
+		getline(cin, courseID_View);
+		if (class_View == "0" || courseID_View == "0") {
+			break;
+		}
+		else {
+			while (1)
+			{
+				if (class_View == current->course.classs && courseID_View == current->course.courseID) {
+					inputPath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
+					inputPath.append(current->course.classs);
+					inputPath.append("-");
+					inputPath.append(current->course.courseID);
+					inputPath.append(".txt");
+					edit_Grade2(inputPath);
+					current = lstCourse.head;
+					break;
+				}
+				else {
+					current = current->next;
+				}
+				if (current == NULL) {
+					cout << "Class or Course is not exist\n\n";
+					current = lstCourse.head;
+					break;
+				}
+			}
+		}
+	}
+}
+void view_ScoreBoard2(string inputPath) {
+	ifstream fin;
+	ofstream fout;
+	LinkedList lst2, lst;
+	Student student;
+	Schedule schedule;
+	string temp1, tempInput = inputPath;
+	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
+	int attendence[100][100], a = -100, b = -100;
+	int active[100];
+	fin.open(inputPath);
+	if (!fin.is_open()) {
+		cout << "can't open " << inputPath << " file";
+	}
+	int i = 0;
+	int j = 0;
+	getline(fin, student.StudentID, '\n');
+	getline(fin, student.StudentPass, '\n');
+	getline(fin, student.StudentName, '\n');
+	getline(fin, student.StudentDOB, '\n');
+	getline(fin, student.StudentGender, '\n');
+	fin >> student.midterm;
+	fin >> student.final;
+	fin >> student.bonus;
+	fin >> student.total;
+	Node* p = new Node;
+	p->student.StudentID = student.StudentID;
+	p->student.StudentPass = student.StudentPass;
+	p->student.StudentName = student.StudentName;
+	p->student.StudentDOB = student.StudentDOB;
+	p->student.StudentGender = student.StudentGender;
+	p->student.midterm = student.midterm;
+	p->student.final = student.final;
+	p->student.bonus = student.bonus;
+	p->student.total = student.total;
+	p->next = NULL;
+	lst2.head = p;
+	Node* current = lst2.head;
+	fin.ignore();
+	getline(fin, schedule.startYear, ' ');
+	getline(fin, schedule.startMonth, ' ');
+	getline(fin, schedule.startDay, ' ');
+	getline(fin, schedule.starthour, ' ');
+	getline(fin, schedule.startminute, ' ');
+	getline(fin, schedule.endhour, ' ');
+	getline(fin, schedule.endminute, ' ');
+	p = new Node;
+	p->schedule.startDay = schedule.startDay;
+	p->schedule.startMonth = schedule.startMonth;
+	p->schedule.startYear = schedule.startYear;
+	p->schedule.starthour = schedule.starthour;
+	p->schedule.startminute = schedule.startminute;
+	p->schedule.endhour = schedule.endhour;
+	p->schedule.endminute = schedule.endminute;
+	p->next = NULL;
+	lst.head = p;
+	Node* currentlst = lst.head;
+	fin >> attendence[i][j];
+	fin.ignore();
+	j++;
+	int n = 1;
+	while (n != 10) {
+		getline(fin, year1, ' ');
+		getline(fin, month1, ' ');
+		getline(fin, day1, ' ');
+		getline(fin, startHour1, ' ');
+		getline(fin, startMinute1, ' ');
+		getline(fin, endHour1, ' ');
+		getline(fin, endMinute1, ' ');
+		fin >> attendence[i][j];
+		if (n < 9) {
+			fin.ignore();
+		}
+		j++;
+		n++;
+	}
+	fin >> active[i];
+	fin.ignore();
+	i++;
+	while (!fin.eof()) {
+		j = 0;
+		getline(fin, student.StudentID, '\n');
+		getline(fin, student.StudentID, '\n');
+		getline(fin, student.StudentPass, '\n');
+		getline(fin, student.StudentName, '\n');
+		getline(fin, student.StudentDOB, '\n');
+		getline(fin, student.StudentGender, '\n');
+		fin >> student.midterm;
+		fin >> student.final;
+		fin >> student.bonus;
+		fin >> student.total;
+		Node* p = new Node;
+		p->student.StudentID = student.StudentID;
+		p->student.StudentPass = student.StudentPass;
+		p->student.StudentName = student.StudentName;
+		p->student.StudentDOB = student.StudentDOB;
+		p->student.StudentGender = student.StudentGender;
+		p->student.midterm = student.midterm;
+		p->student.final = student.final;
+		p->student.bonus = student.bonus;
+		p->student.total = student.total;
+		p->next = NULL;
+		current->next = p;
+		current = current->next;
+		fin.ignore();
+		getline(fin, year1, ' ');
+		getline(fin, month1, ' ');
+		getline(fin, day1, ' ');
+		getline(fin, startHour1, ' ');
+		getline(fin, startMinute1, ' ');
+		getline(fin, endHour1, ' ');
+		getline(fin, endMinute1, ' ');
+		fin >> attendence[i][j];
+		fin.ignore();
+		j++;
+		int n = 1;
+		while (n != 10) {
+			if (n == 9) {
+				getline(fin, schedule.EndYear, ' ');
+				getline(fin, schedule.Endmonth, ' ');
+				getline(fin, schedule.EndDay, ' ');
+				p = new Node;
+				p->schedule.startDay = schedule.startDay;
+				p->schedule.startMonth = schedule.startMonth;
+				p->schedule.startYear = schedule.startYear;
+				p->schedule.EndDay = schedule.EndDay;
+				p->schedule.Endmonth = schedule.Endmonth;
+				p->schedule.EndYear = schedule.EndYear;
+				p->schedule.starthour = schedule.starthour;
+				p->schedule.startminute = schedule.startminute;
+				p->schedule.endhour = schedule.endhour;
+				p->schedule.endminute = schedule.endminute;
+				p->next = NULL;
+				lst.head = p;
+				Node* currentlst = lst.head;
+			}
+			else {
+				getline(fin, year1, ' ');
+				getline(fin, month1, ' ');
+				getline(fin, day1, ' ');
+			}
+			getline(fin, startHour1, ' ');
+			getline(fin, startMinute1, ' ');
+			getline(fin, endHour1, ' ');
+			getline(fin, endMinute1, ' ');
+			fin >> attendence[i][j];
+			if (n < 9) {
+				fin.ignore();
+			}
+			j++;
+			n++;
+		}
+		fin >> active[i];
+		fin.ignore();
+		i++;
+	}
+	fin.close();
+	currentlst = lst.head;
+	current = lst2.head;
+
+	while (current->next != NULL) {
+		cout << current->student.StudentID << endl;
+		cout << current->student.StudentName << endl;
+		cout << current->student.midterm << endl;
+		cout << current->student.final << endl;
+		cout << current->student.bonus << endl;
+		cout << current->student.total << endl;
+		cout << endl;
+		current = current->next;
+		cout << endl;
+	}
+}
+void main_View_Score_Board() {
+	LinkedList lstCourse;
+	string class_View, courseID_View, inputPath;
+	ifstream fin;
+	while (1) {
+		view_List_Of_Course2(lstCourse);
+		Node* current = lstCourse.head;
+		cout << "0. back\n";
+		cout << "Enter Class of courese to view ScoreBoard:";
+		getline(cin, class_View);
+		cout << "Enter CourseID of courese to view ScoreBoard:";
+		getline(cin, courseID_View);
+		if (class_View == "0" || courseID_View == "0") {
+			break;
+		}
+		else {
+			while (1)
+			{
+				if (class_View == current->course.classs && courseID_View == current->course.courseID) {
+					inputPath = "C:\\Users\\admin\\source\\repos\\Test\\Projec lam lai ham 23 26 27 28 30\\";
+					inputPath.append(current->course.classs);
+					inputPath.append("-");
+					inputPath.append(current->course.courseID);
+					inputPath.append(".txt");
+					view_ScoreBoard2(inputPath);
+					current = lstCourse.head;
+					break;
+				}
+				else {
+					current = current->next;
+				}
+				if (current == NULL) {
+					cout << "Class or Course is not exist\n\n";
+					current = lstCourse.head;
+					break;
+				}
+			}
+		}
+	}
+}
+void export_Score_Board_csv(string inputpath) {
+
+}
+void option_Lecturer() {
+	LinkedList lstCourse;
+	while (true)
+	{
+		string choice;
+		cout << "27.Export a attendance list to a csv file." << endl;
+		cout << "28.View list of courses in the current semester." << endl;
+		cout << "29.View list of students of a course." << endl;
+		cout << "30.View attendance list of a course." << endl;
+		cout << "31.Edit an attendance." << endl;
+		cout << "32.Import scoreboard of a course from a csv file." << endl;
+		cout << "33.Edit grade of a student" << endl;
+		cout << "34.View a scoreboard of a course" << endl;
+
+		cout << "0.exit" << endl;
+		cout << "pls choose your choice : ";
+		cin >> choice;
+		if (choice == "28")
+		{
+			view_List_Of_Course2(lstCourse);
+		}
+		else if (choice == "30")
+		{
+			cin.ignore(1);
+			main_View_Attendence_List_Of_Course();
+		}
+		else if (choice == "27")
+		{
+			cin.ignore(1);
+			main_Export_Attendence_csv_File();
+		}
+		else if (choice == "29")
+		{
+			cin.ignore(1);
+			main_View_Student_Of_Course();
+		}
+		else if (choice == "31")
+		{
+			cin.ignore(1);
+			main_Edit_Attendence();
+		}
+		else if (choice == "32")
+		{
+			cin.ignore(1);
+			main_import_ScoreBoard();
+		}
+		else if (choice == "33")
+		{
+			cin.ignore(1);
+			main_Edit_Grade();
+		}
+		else if (choice == "34")
+		{
+			cin.ignore(1);
+			main_View_Score_Board();
+		}
+		else if (choice == "0")
+		{
+			break;
+		}
+		else {
+			cout << "27.Export a attendance list to a csv file." << endl;
+			cout << "28.View list of courses in the current semester." << endl;
+			cout << "29.View list of students of a course." << endl;
+			cout << "30.View attendance list of a course." << endl;
+			cout << "31.Edit an attendance." << endl;
+			cout << "32.Import scoreboard of a course from a csv file." << endl;
+			cout << "33.Edit grade of a student" << endl;
+			cout << "34.View a scoreboard" << endl;
+			cout << "0.exit" << endl;
+			cout << "please choose your choice :" << endl;
+			cin >> choice;
+		}
+	}
 }

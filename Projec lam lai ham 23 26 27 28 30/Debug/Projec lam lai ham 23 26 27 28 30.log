@@ -1,1 +1,18 @@
-﻿  Projec lam lai ham 23 26 27 28 30.vcxproj -> C:\Users\admin\source\repos\Test\Debug\Projec lam lai ham 23 26 27 28 30.exe
+﻿  function.cpp
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(1991,6): warning C4101: 'gender': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2076,23): warning C4101: 'lst2': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2076,28): warning C4101: 'lst': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2370,24): warning C4101: 'lst2': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2370,30): warning C4101: 'lst': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2851,24): warning C4101: 'lst2': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2851,30): warning C4101: 'lst': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2891,24): warning C4101: 'lst2': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(2891,30): warning C4101: 'lst': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(3535,24): warning C4101: 'lst2': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(3535,30): warning C4101: 'lst': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(3855,24): warning C4101: 'lst2': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(3855,30): warning C4101: 'lst': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(4067,24): warning C4101: 'lst2': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(4067,30): warning C4101: 'lst': unreferenced local variable
+C:\Users\admin\source\repos\Test\Projec lam lai ham 23 26 27 28 30\function.cpp(460): warning C4715: 'day_of_month': not all control paths return a value
+  Projec lam lai ham 23 26 27 28 30.vcxproj -> C:\Users\admin\source\repos\Test\Debug\Projec lam lai ham 23 26 27 28 30.exe
