@@ -615,7 +615,7 @@ void main_schedule_from_csv_to_txt(LinkedList& lst, LinkedList& lst2)
 	fin.open(inputpath);
 	if (!fin.is_open())
 	{
-		cout << "can not open file" << endl;
+		cout << "can not open file "<<inputpath<<" pls check again your file" << endl;
 		return;
 
 
@@ -644,7 +644,7 @@ void main_schedule_from_csv_to_txt(LinkedList& lst, LinkedList& lst2)
 
 	if (!fin.is_open())
 	{
-		cout << "can not open file";
+		cout << "can not open file " << inputpath<<" pls check again your file" << endl;
 		return;
 	}
 	else
@@ -931,7 +931,7 @@ void Add_course(LinkedList& lst, int& count, Schedule& s)
 	getline(cin, s.id);
 	cout << "Enter the course Name" << endl;
 	getline(cin, s.name);
-	cout << "Enter the class you want to import the new course" << endl;
+	cout << "Enter the class of the new course" << endl;
 	getline(cin, s.classes);
 	cout << "Enter the Lecturer Username" << endl;
 	getline(cin, s.LecturerUsername);
@@ -1000,9 +1000,17 @@ void output_file_schedule_txt(LinkedList lst, ofstream& fout)
 			fout << current->schedule.classes << endl;
 			fout << current->schedule.LecturerUsername << endl;
 			fout << current->schedule.LecturerName << endl;
-
+			
 			fout << current->schedule.LecturerDegree << endl;
-			fout << current->schedule.lecturerGender << endl;
+			if (current->schedule.LecturerDegree == "0" || current->schedule.lecturerGender == "Male" || current->schedule.lecturerGender == "male")
+			{
+				fout << "0" << endl;
+			}
+			else
+			{
+				fout << "1" << endl;
+			}
+			//fout << current->schedule.lecturerGender << endl;
 			fout << current->schedule.startYear << " ";
 
 
@@ -1071,7 +1079,7 @@ void main_add_course(LinkedList& lst, LinkedList& lst2)
 	fin.open(inputpath);
 	if (!fin.is_open())
 	{
-		cout << "can not open schedule file" << endl;
+		cout << "can not open "<<inputpath<<" to write"<<" pls check again your file" << endl;
 		return;
 	}
 	else
@@ -1084,7 +1092,7 @@ void main_add_course(LinkedList& lst, LinkedList& lst2)
 		fout.open(inputpath, ios::out);
 		if (!fout.is_open())
 		{
-			cout << "can not open file" << endl;
+			cout << "can not open file to write" << endl;
 		}
 		else
 		{
@@ -1095,14 +1103,14 @@ void main_add_course(LinkedList& lst, LinkedList& lst2)
 		fin.close();
 	}
 
-	cout << "pls Enter the input path of the filse student txt" << endl;
+	cout << "pls Enter the input path of the file student txt of your class want to add the new course" << endl;
 	getline(cin, inputpath);
 
 	fin.open(inputpath);
 	
 	if (!fin.is_open())
 	{
-		cout << "can not open student.txt" << endl;
+		cout << "can not open "<<inputpath<<" to import pls check again your file" << endl;
 		return;
 	}
 	else
@@ -1118,16 +1126,18 @@ void main_add_course(LinkedList& lst, LinkedList& lst2)
 		if (!fout.is_open())
 		{
 			cout << "can not create file";
+			return;
 		}
 		else
 		{
 			output_file_Student_Add(fout, lst2, s);
 			fout.close();
 		}
-		fout.open("list of course.txt", ios::app);
+		fout.open("List_Of_Course.txt", ios::app);
 		if (!fout.is_open())
 		{
-			cout << "can not open file list of course to write" << endl;
+			cout << "can not open file List_Of_Course to write" << endl;
+			return;
 		}
 		else
 		{
@@ -1635,10 +1645,18 @@ void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList
 			currentlofcourse = currentlofcourse->next;
 		}
 	}
-	fout.open("list of course.txt");
+	if (currentlofcourse == NULL)
+	{
+		remove(c);
+
+		delete[] c;
+		return;
+	}
+	fout.open("List_Of_Course.txt");
 	if (!fout.is_open())
 	{
-		cout << "can not open file list of course.txt" << endl;
+		cout << "can not open file List_Of_Course.txt" << endl;
+		return;
 	}
 	else
 	{
@@ -1685,7 +1703,7 @@ void main_edit_course(LinkedList& lst, LinkedList& lst2)
 	fin.open(inputpath1);
 	if (!fin.is_open())
 	{
-		cout << "can not open file" << endl;
+		cout << "can not open "<<inputpath1<<" to edit,pls check again your file" << endl;
 	}
 	else
 	{
@@ -1696,7 +1714,8 @@ void main_edit_course(LinkedList& lst, LinkedList& lst2)
 		fout.open(inputpath1, ios::out);
 		if (!fout.is_open())
 		{
-			cout << "can not open file" << endl;
+			cout << "can not open file "<<inputpath1<<" for update" << endl;
+			return;
 		}
 		else
 		{
@@ -1817,6 +1836,10 @@ void delete_course(LinkedList& lst, int& count)
 				currentlofcourse = currentlofcourse->next;
 			}
 		}
+		if (currentlofcourse == NULL)
+		{
+			return;
+		}
 		if (currentlofcourse == lofcourse.head)
 		{
 	
@@ -1847,10 +1870,11 @@ void delete_course(LinkedList& lst, int& count)
 	
 		ofstream fout;
 		
-		fout.open("list of course.txt");
+		fout.open("List_Of_Course.txt");
 		if (!fout.is_open())
 		{
-			cout << "can not open file list of course.txt" << endl;
+			cout << "can not open file List_Of_Course.txt to save" << endl;
+			return;
 		}
 		else
 		{
@@ -1893,7 +1917,8 @@ void main_delete_course(LinkedList& lst)
 	fin.open(inputpath);
 	if (!fin.is_open())
 	{
-		cout << "can not open file" << endl;
+		cout << "can not open file "<<inputpath<<" to write,pls check again your file" << endl;
+		return;
 	}
 	else
 	{
@@ -1904,7 +1929,8 @@ void main_delete_course(LinkedList& lst)
 		fout.open(inputpath, ios::out);
 		if (!fout.is_open())
 		{
-			cout << "can not open file" << endl;
+			cout << "can not open file "<<inputpath<<" for the ouput" << endl;
+			return;
 		}
 		else
 		{
@@ -1948,7 +1974,8 @@ void remove_specific_student(LinkedList& lst2, LinkedList lst, string classes)
 	int attendence[100][100];
 	fin.open(inputpath);
 	if (!fin.is_open()) {
-		cout << "can't open " << inputpath << " file";
+		cout << "can't open " << inputpath << " file,pls check again your file and try again";
+		return;
 	}
 	else
 	{
@@ -2106,7 +2133,8 @@ void remove_specific_student(LinkedList& lst2, LinkedList lst, string classes)
 	current = lst2.head;
 	fout.open(inputpath, ios::out);
 	if (!fout.is_open()) {
-		cout << "can't create " << inputpath << " file ";
+		cout << "can't open " << inputpath << " file to write,pls check again your file and try again";
+		return;
 	}
 	else {
 		int i = 0;
@@ -2241,7 +2269,8 @@ void main_remove_specific_student(LinkedList lst, LinkedList& lst2)
 	fin.open(inputpath);
 	if (!fin.is_open())
 	{
-		cout << "can not open file" << endl;
+		cout << "can not open file "<<inputpath<<" to write,pls check again your file" << endl;
+		return;
 	}
 	else
 	{
@@ -2310,7 +2339,8 @@ void Add_specific_student(LinkedList& lst)
 	fin.open(inputpath);
 	if (!fin.is_open())
 	{
-		cout << "can not open file" << endl;
+		cout << "can not open "<<inputpath << endl;
+		return;
 	}
 	else
 	{
@@ -2332,6 +2362,7 @@ void Add_specific_student(LinkedList& lst)
 	if (current == NULL)
 	{
 		cout << "can not find the ID of your course in Schedule file" << endl;
+		return;
 	}
 	else
 	{
@@ -2470,6 +2501,7 @@ void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpat
 	fin.open(inputpath);
 	if (!fin.is_open()) {
 		cout << "can't open " << inputpath << " file" << endl;
+		return;
 	}
 	else
 	{
@@ -2597,6 +2629,7 @@ void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpat
 	fout.open(outputpath);
 	if (!fout.is_open()) {
 		cout << "can't create " << inputpath << " file " << endl;
+		return;
 	}
 	else {
 		int i = 0;
@@ -2734,9 +2767,10 @@ Node* CreateNodeAnh_Course(Course c)
 void load_List_Of_Course2(LinkedList& lstCourse) {
 	ifstream fin;
 	Course course;
-	fin.open("list of course.txt");
+	fin.open("List_Of_Course.txt");
 	if (!fin.is_open()) {
 		cout << "can't open List_Of_Course.txt";
+		return;
 	}
 	getline(fin, course.classes, '-');
 	getline(fin, course.id, '\n');
@@ -4054,7 +4088,7 @@ void delete_Semester(LinkedList& lst)
 
 void main_semester()
 {
-	int choice = 0;
+	string choice;
 	Semester s;
 	LinkedList lst;
 	ofstream fout;
@@ -4071,7 +4105,7 @@ void main_semester()
 		cin >> choice;
 		cout << endl;
 		cout << endl;
-		if (choice == 1)
+		if (choice == "1")
 		{
 
 			cout << "input year: ";
@@ -4083,7 +4117,7 @@ void main_semester()
 			fout.open("Semester.txt");
 			if (!fout.is_open())
 			{
-				cout << "can not create file";
+				cout << "can not create file semester.txt";
 			}
 			else
 			{
@@ -4093,12 +4127,12 @@ void main_semester()
 
 			cout << endl;
 		}
-		else if (choice == 4)
+		else if (choice == "4")
 		{
 			fin.open("Semester.txt");
 			if (!fin.is_open())
 			{
-				cout << "can not open file";
+				cout << "can not open file Semester.txt pls check again your file"<<endl;
 			}
 			else
 			{
@@ -4109,23 +4143,23 @@ void main_semester()
 
 
 		}
-		else if (choice == 0)
+		else if (choice == "0")
 		{
 			break;
 		}
-		else if (choice == 3)
+		else if (choice == "3")
 		{
 			fin.open("Semester.txt");
 			if (!fin.is_open())
 			{
-				cout << "can not open file";
+				cout << "can not open file Semester.txt,pls check again your file" << endl;
 			}
 			else
 			{
 				input_Semester(lst, fin);
 				if (lst.head == NULL)
 				{
-					cout << "pls create file";
+					cout << "pls create file semester.txt first";
 				}
 				else
 				{
@@ -4133,7 +4167,7 @@ void main_semester()
 					fout.open("Semester.txt", ios::out);
 					if (!fout.is_open())
 					{
-						cout << "can not open file" << endl;
+						cout << "can not open file Semester.txt to write pls check again your file" << endl;
 					}
 					else
 					{
@@ -4146,7 +4180,7 @@ void main_semester()
 				}
 			}
 		}
-		else if (choice == 2)
+		else if (choice == "2")
 		{
 
 
@@ -4185,6 +4219,11 @@ void main_semester()
 				}
 			}
 		}
+		else
+		{
+		cout << "your choice dosen't exsit pls choose again" << endl;
+		continue;
+ }
 	}
 }
 void main_Edit_Attendence() {
