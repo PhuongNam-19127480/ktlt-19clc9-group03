@@ -202,7 +202,7 @@ CheckIn* createCheckIn();
 
 //Thien
 void menuStaff(Node user);
-Node* CreateNodeThien(string No, string ID, string Lastname, string Firstname, string Gender, string Day, string Month, string Year);
+Node* CreateNodeCSV(string No, string ID, string Lastname, string Firstname, string Gender, string Day, string Month, string Year);
 void LoadStudent(ifstream& finput, LinkedList& Stu);
 void Load_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedList& CLC4, LinkedList& CLC5, LinkedList& CLC6, LinkedList& CLC7, LinkedList& CLC8, LinkedList& CLC9, LinkedList& CLC10, LinkedList& APCS1, LinkedList& APCS2);
 void InsertStudent(LinkedList& Stu);
@@ -288,4 +288,6 @@ void main_import_ScoreBoard();
 void edit_Grade2(string inputPath);
 void main_Edit_Grade();
 void option_Lecturer();
+void view_schedule_2(LinkedList lst);
+
 #endif

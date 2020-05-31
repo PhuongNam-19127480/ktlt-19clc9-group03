@@ -139,8 +139,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="function.cpp" />
+    <ClCompile Include="function_1A.cpp" />
     <ClCompile Include="function_2A.cpp" />
-    <ClCompile Include="function_thien.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

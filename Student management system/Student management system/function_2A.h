@@ -156,6 +156,7 @@ void main_import_ScoreBoard();
 void edit_Grade2(string inputPath);
 void main_Edit_Grade();
 void option_Lecturer();
+void view_schedule_2(LinkedList lst);
 
 
 

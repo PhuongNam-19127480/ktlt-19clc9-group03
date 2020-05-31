@@ -709,6 +709,7 @@ void menuLecturer(LinkedList& APCS1)
 	while (true)
 	{
 		string choice;
+		cout << "-----Lecturer menu-----" << endl;
 		cout << "if you don't have the Schedule txt yet,pls choose 1 to create schedule txt,if you already have you can choose other option" << endl;
 		cout << "1.create file schedule txt file" << endl;
 		cout << "2.Add course to file" << endl;
@@ -1148,7 +1149,7 @@ void main_add_course(LinkedList& lst, LinkedList& lst2)
 	}
 
 
-	cout << "Add successfully" << endl;
+	cout << "Add course successfully" << endl;
 
 	fin.close();
 
@@ -1416,6 +1417,7 @@ void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList
 	ofstream fout;
 	string old_oldid;
 	string old_classes;
+	//view_schedule_2(lst);
 	cout << "input the num of the course you want to edit" << endl;
 	cin >> s.no;
 	Node* current = lst.head;
@@ -1666,6 +1668,8 @@ void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList
 	remove(c);
 
 	delete[] c;
+	cout << "edit successfully" << endl;
+	view_schedule_2(lst);
 }
 
 void main_edit_course(LinkedList& lst, LinkedList& lst2)
@@ -1708,7 +1712,8 @@ void main_edit_course(LinkedList& lst, LinkedList& lst2)
 	else
 	{
 		load_file_schedule_txt(lst, fin, count);
-		view_schedule(lst);
+		//view_schedule(lst);
+		view_schedule_2(lst);
 		edit_course(lst, cur, inputpath2, lst2);
 
 		fout.open(inputpath1, ios::out);
@@ -1720,7 +1725,8 @@ void main_edit_course(LinkedList& lst, LinkedList& lst2)
 		else
 		{
 			output_file_schedule_txt(lst, fout);
-			cout << "edit successfully" << endl;
+		/*	cout << "edit successfully" << endl;
+			view_schedule_2(lst);*/
 		
 			fout.close();
 		}
@@ -1736,6 +1742,35 @@ void view_schedule(LinkedList lst)
 		cout << current->schedule.no << endl;
 		cout << current->schedule.id << endl;
 		cout << current->schedule.name << endl;
+		current = current->next;
+	}
+}
+
+void view_schedule_2(LinkedList lst)
+{
+	Node* current = lst.head;
+	while (current != NULL)
+	{
+		cout << current->schedule.no << endl;
+		cout << current->schedule.id << endl;
+		cout << current->schedule.name << endl;
+		cout << current->schedule.classes << endl;
+		cout << current->schedule.LecturerUsername << endl;
+		cout << current->schedule.LecturerName << endl;
+		cout << current->schedule.LecturerDegree << endl;
+		cout << current->schedule.lecturerGender << endl;
+		cout << current->schedule.startYear << " ";
+		cout << current->schedule.startMonth << " ";
+		cout << current->schedule.startDay << endl;
+		cout << current->schedule.endYear << " ";
+		cout << current->schedule.endMonth << " ";
+		cout << current->schedule.endDay << endl;
+		cout << current->schedule.DayOfWeek << endl;
+		cout << current->schedule.startHour << " ";
+		cout << current->schedule.startMinute << endl;
+		cout << current->schedule.endHour << " ";
+		cout << current->schedule.endMinute << endl;
+		cout << current->schedule.Room << endl;
 		current = current->next;
 	}
 }
@@ -1881,7 +1916,11 @@ void delete_course(LinkedList& lst, int& count)
 			save_list_of_course(fout, lofcourse);
 			fout.close();
 		}
+		cout << "delete " << delete_course << " from " << delete_classes<<" successfully" << endl;
+		view_schedule(lst);
 	}
+	
+	
 
 
 }
@@ -1936,7 +1975,7 @@ void main_delete_course(LinkedList& lst)
 		{
 			output_file_schedule_txt(lst, fout);
 
-			cout << "delete successfully" << endl;
+			//cout << "delete successfully" << endl;
 			fout.close();
 		}
 		fin.close();
@@ -1953,10 +1992,10 @@ void remove_specific_student(LinkedList& lst2, LinkedList lst, string classes)
 	
 	string inputpath;
 	
-	cout << "pls input the ID of the student you want to remove" << endl;
-	getline(cin, IDstudent);
+	
 	cout << "pls input the ID course of the student you remove" << endl;
 	getline(cin, IDcourse);
+	cout << endl;
 
 	
 
@@ -1964,6 +2003,9 @@ void remove_specific_student(LinkedList& lst2, LinkedList lst, string classes)
 	inputpath.append("-");
 	inputpath.append(IDcourse);
 	inputpath.append(".txt");
+	view_Student(inputpath);
+	cout << "pls input the ID of the student you want to remove" << endl;
+	getline(cin, IDstudent);
 
 	
 	Node* currentlst = lst.head;
@@ -2235,6 +2277,9 @@ void remove_specific_student(LinkedList& lst2, LinkedList lst, string classes)
 			current = current->next;
 		}
 	}
+	cout << endl;
+	cout << "remove successfully" << endl;
+	view_Student(inputpath);
 
 	fout.close();
 
@@ -2251,11 +2296,11 @@ void main_remove_specific_student(LinkedList lst, LinkedList& lst2)
 	string academic;
 	string semester;
 	string classes;
-	cout << "pls Enter the academic of the Schedule you want to delete course" << endl;
+	cout << "pls Enter the academic of the course you want to remove student" << endl;
 	getline(cin, academic);
-	cout << "pls Enter the semester of the Schedule you want to delete course" << endl;
+	cout << "pls Enter the semester of the course you want to remove student" << endl;
 	getline(cin, semester);
-	cout << "pls Enter the classes you want to delete course" << endl;
+	cout << "pls Enter the classes you want to remove student" << endl;
 	getline(cin, s.classes);
 	inputpath = academic;
 	inputpath.append("-");
@@ -2277,7 +2322,7 @@ void main_remove_specific_student(LinkedList lst, LinkedList& lst2)
 		load_file_schedule_txt(lst, fin, count);
 
 		remove_specific_student(lst2, lst, s.classes);
-		cout << "remove sucessfully" << endl;
+		
 
 	}
 	fin.close();
@@ -2485,6 +2530,9 @@ void Add_specific_student(LinkedList& lst)
 
 		}
 	}
+	cout << "Add successfully" << endl;
+	view_Student(outputpath);
+
 }
 
 
@@ -3969,6 +4017,8 @@ void update_Semester(LinkedList& lst, Semester& s)
 		Node* p = createNoteSemester(s);
 		current->next = p;
 	}
+	cout << "update semester successfully" << endl;
+	view_Semester(lst);
 
 
 }
@@ -4084,6 +4134,8 @@ void delete_Semester(LinkedList& lst)
 		}
 
 	}
+	cout << "delete semester successfully" << endl;
+	view_Semester(lst);
 }
 
 void main_semester()
@@ -4168,6 +4220,7 @@ void main_semester()
 					if (!fout.is_open())
 					{
 						cout << "can not open file Semester.txt to write pls check again your file" << endl;
+						
 					}
 					else
 					{
@@ -4207,7 +4260,8 @@ void main_semester()
 					fout.open("Semester.txt", ios::out);
 					if (!fout.is_open())
 					{
-						cout << "can not open file" << endl;
+						cout << "can not open file semester.txt to write" << endl;
+						
 					}
 					else
 					{
@@ -4276,6 +4330,7 @@ void edit_Attendence2(string inputPath) {
 	int year_edit = 0, month_edit = 0, day_edit = 0, attend;
 	int a = -100;
 	int b = -100;
+	view_3(inputPath);
 	cout << "Enter Student ID to edit: ";
 	getline(cin, studentID_View);
 
@@ -4553,6 +4608,8 @@ void edit_Attendence2(string inputPath) {
 		cout << "\n Please Entered again: \n";
 	}
 	if (a == 100) {
+		view_3(inputPath);
+		cout << "After edit\n";
 		cout << "\nEdit successfully\n";
 	}
 	else {
@@ -4911,6 +4968,7 @@ void edit_Grade2(string inputPath) {
 	int attendence[100][100], a = -100, b = -100;
 	int active[100];
 	string studentID_View;
+	view_ScoreBoard2(inputPath);
 	cout << "\nEnter Student ID to edit grade: ";
 	getline(cin, studentID_View);
 	fin.open(inputPath);
@@ -5172,6 +5230,8 @@ void edit_Grade2(string inputPath) {
 		cout << "\n Please Entered again: \n";
 	}
 	else {
+		view_ScoreBoard2(inputPath);
+		cout << "After edit\n";
 		cout << "\nEdit grade successfully\n";
 	}
 }

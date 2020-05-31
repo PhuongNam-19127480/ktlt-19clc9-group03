@@ -644,6 +644,8 @@ void loadStudentInClass(ifstream& fin, LinkedList& studentList)
 		//add
 		p = createNode();
 		getline(fin, p->student.username, '\n');
+		if (p->student.username == "")
+			break;
 		getline(fin, p->student.name, '\n');
 		getline(fin, p->student.DOB, '\n');
 		getline(fin, p->student.gender, '\n');
@@ -747,12 +749,8 @@ void saveCheckIn(ofstream& fout, LinkedList studentList) {
 			check_cur = check_cur->next;
 		}
 		//active
-		if (cur->next == NULL) {
-			fout << cur->student.status;
-		} else {
-			fout << cur->student.status << endl;
-			fout << '\n';
-		}
+		fout << cur->student.status << endl;
+		fout << '\n';
 		//move
 		cur = cur->next;
 	}
