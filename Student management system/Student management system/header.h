@@ -234,7 +234,6 @@ int day_after_1_week(int day, int thang, int nam);
 bool isCheck(int nam);
 //void remove_specific_student( LinkedList &lst2, LinkedList lst);
 void main_schedule_from_csv_to_txt(LinkedList& lst, LinkedList& lst2);
-void menuLecturer(LinkedList& APCS1);
 
 void option_course(LinkedList& lst);
 void load_file_schedule_txt(LinkedList& lst, ifstream& fin, int& count);
@@ -287,7 +286,8 @@ void import_Score_Board2(string inputPath);
 void main_import_ScoreBoard();
 void edit_Grade2(string inputPath);
 void main_Edit_Grade();
-void option_Lecturer();
+void menuLecturer();
 void view_schedule_2(LinkedList lst);
+void courseFunction(LinkedList& APCS1);
 
 #endif

@@ -381,7 +381,7 @@ void menuShow(Node user) {
 		menuStaff(user); // funcion_thien
 		break;
 	case 2:
-		menuLecturer(list); // fucntion_2A
+		menuLecturer(); // fucntion_2A
 		break;
 	case 3:
 		menuStudent(user);

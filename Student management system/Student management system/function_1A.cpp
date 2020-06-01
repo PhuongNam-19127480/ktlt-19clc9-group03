@@ -18,7 +18,121 @@ Node* CreateNodeCSV(string No, string ID, string Lastname, string Firstname, str
 	return p;
 }
 
+void courseFunction(LinkedList& APCS1) {
+	ifstream fin;
+
+
+	LinkedList student_APCS1, lstCourse, lstLecturer;
+	lstCourse.head = NULL;
+
+	while (true)
+	{
+		string choice;
+		cout << "-----Course function-----" << endl;
+		cout << "if you don't have the Schedule txt yet,pls choose 1 to create schedule txt,if you already have you can choose other option" << endl;
+		cout << "1.create file schedule txt file" << endl;
+		cout << "2.Add course to file" << endl;
+		cout << "3.Edit course" << endl;
+		cout << "4.delete course" << endl;
+		cout << "5.remove specific student" << endl;
+		cout << "6.Add specific student" << endl;
+		cout << "7.View list of courses in the current semester." << endl;
+		cout << "8.View list of students of a course." << endl;
+		cout << "9.View attendance list of a course." << endl;
+		cout << "10.View all Lecturer" << endl;
+		cout << "11.Search and view the scoreboard of a course." << endl;
+		cout << "12.Export a scoreboard of a course to a csv file." << endl;
+		cout << "13.Export a Attendence of a course to a csv file." << endl;
+		cout << "0.exit" << endl;
+		cout << "Choice: ";
+		getline(cin, choice);
+		if (choice == "")
+		{
+			getline(cin, choice);
+		}
+		if (choice == "1")
+		{
+
+			LinkedList student_APCS1;
+			cout << "loading Schedule csv" << endl;
+			main_schedule_from_csv_to_txt(APCS1, student_APCS1);
+		}
+		else if (choice == "2")
+		{
+
+			main_add_course(APCS1, student_APCS1);
+		}
+		else if (choice == "3")
+		{
+
+			main_edit_course(APCS1, student_APCS1);
+		}
+		else if (choice == "4")
+		{
+
+			main_delete_course(APCS1);
+		}
+		else if (choice == "5")
+		{
+
+			main_remove_specific_student(APCS1, student_APCS1);
+		}
+		else if (choice == "6")
+		{
+
+			Add_specific_student(APCS1);
+		}
+		else if (choice == "7")
+		{
+
+			view_List_Of_Course2(lstCourse);
+		}
+		else if (choice == "8")
+		{
+
+
+			main_View_Student_Of_Course();
+		}
+		else if (choice == "9")
+		{
+
+			main_View_Attendence_List_Of_Course();
+		}
+		else if (choice == "10")
+		{
+
+			viewLecturer(lstLecturer);
+		}
+		else if (choice == "11")
+		{
+
+
+			main_View_Score_Board();
+		}
+		else if (choice == "12")
+		{
+
+			main_export_Score_Board_csv();
+		}
+		else if (choice == "13")
+		{
+
+			main_Export_Attendence_csv_File();
+		}
+		else if (choice == "0")
+		{
+			break;
+		}
+		else
+		{
+			cout << "your choice dosen't exsit you stupid" << endl;
+			continue;
+		}
+	}
+}
+
 void menuStaff(Node user) {
+	LinkedList tamAnh;
 	LinkedList CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2;
 	string choice;
 
@@ -32,6 +146,7 @@ void menuStaff(Node user) {
 		cout << "6. View list of classes " << endl;
 		cout << "7. View list of students in a class" << endl;
 		cout << "8. Semester function" << endl;
+		cout << "9. Course function" << endl;
 		cout << "0. Comeback" << endl;
 		cout << endl;
 
@@ -75,6 +190,9 @@ void menuStaff(Node user) {
 		}
 		else if (choice == "8") {
 			main_semester();
+		}
+		else if (choice == "9"){
+			courseFunction(tamAnh);
 		}
 		else if (choice == "0") {
 			cout << "Exiting" << endl;
