@@ -1,7 +1,7 @@
 1
 CS162
 Introduction to Programming
-19CLC13
+19APCS1
 dbtien
 Dinh Ba Tien
 TS
@@ -14,32 +14,17 @@ MON
 I42
 
 2
-CS122
-VLDC
-19CLC13
-MR Thanh
-Thanh
-TS
+CM101
+Communications
+19APCS1
+dnvu
+Duong Nguyen Vu
+GS
 1
 2020 04 06
 2020 06 08
-WED
-9 30
-11 30
-I32
-
-3
-CS888
-TRIET
-19CLC13
-MR Thanh
-Thanh
-TS
-1
-2020 04 06
-2020 06 08
-WED
-9 30
-11 30
-I34
+SAT
+13 30
+17 30
+I23
 

@@ -1,20 +1,13 @@
-﻿  function.cpp
-C:\Users\admin\source\repos\Student management system\Student management system\function.cpp(776,7): warning C4101: 'timeNow': unreferenced local variable
-  function_2A.cpp
+﻿  function_2A.cpp
 C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(208,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1043,7): warning C4101: 'base': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1661,7): warning C4101: 'base': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1872,7): warning C4101: 'base': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1946,6): warning C4101: 'temp': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1956,7): warning C4101: 'temp': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(2464,6): warning C4101: 'temp': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(2477,7): warning C4101: 'temp': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(3497,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  function_thien.cpp
-C:\Users\admin\source\repos\Student management system\Student management system\function_thien.cpp(945,7): warning C4101: 'n': unreferenced local variable
-C:\Users\admin\source\repos\Student management system\Student management system\function_thien.cpp(1138,6): warning C4101: 'n': unreferenced local variable
-  main.cpp
-  Generating Code...
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(939,7): warning C4101: 'base': unreferenced local variable
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1570,7): warning C4101: 'base': unreferenced local variable
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1822,7): warning C4101: 'base': unreferenced local variable
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1901,6): warning C4101: 'temp': unreferenced local variable
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(1912,7): warning C4101: 'temp': unreferenced local variable
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(2430,6): warning C4101: 'temp': unreferenced local variable
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(2444,7): warning C4101: 'temp': unreferenced local variable
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(3468,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(3756,6): warning C4101: 'n': unreferenced local variable
 C:\Users\admin\source\repos\Student management system\Student management system\function_2A.cpp(561): warning C4715: 'day_of_month': not all control paths return a value
-C:\Users\admin\source\repos\Student management system\Student management system\function.cpp(484): warning C4715: 'gender': not all control paths return a value
   Student management system.vcxproj -> C:\Users\admin\source\repos\Student management system\x64\Debug\Student management system.exe

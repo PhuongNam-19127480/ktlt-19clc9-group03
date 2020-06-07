@@ -1037,8 +1037,7 @@ void main_add_course(LinkedList& lst, LinkedList& lst2)
 
 
 	cout << "Add course successfully" << endl;
-	cout << endl;
-	view_schedule_2(lst);
+
 	fin.close();
 
 }
@@ -1659,7 +1658,6 @@ void view_schedule_2(LinkedList lst)
 		cout << current->schedule.endHour << " ";
 		cout << current->schedule.endMinute << endl;
 		cout << current->schedule.Room << endl;
-		cout << endl;
 		current = current->next;
 	}
 }
@@ -1805,7 +1803,7 @@ void delete_course(LinkedList& lst, int& count)
 			save_list_of_course(fout, lofcourse);
 			fout.close();
 		}
-		cout << "delete " << delete_id << " from " << delete_classes<<" successfully" << endl;
+		cout << "delete " << delete_course << " from " << delete_classes<<" successfully" << endl;
 		view_schedule(lst);
 	}
 	
@@ -2239,11 +2237,11 @@ void Add_specific_student(LinkedList& lst)
 	getline(cin, academic);
 	cout << "Enter the semester of the course you want to add student" << endl;
 	getline(cin, semester);
-	cout << "Enter the classes you want to Add student" << endl;
+	cout << "Enter the classes you want to Add" << endl;
 	getline(cin, sc.classes);
-	cout << "Enter Course ID you want to Add student" << endl;
+	cout << "Enter Course ID you want to Add" << endl;
 	getline(cin, sc.id);
-	cout << "Enter ID of student" << endl;
+	cout << "nhap vao ID of student" << endl;
 	getline(cin, s.username);
 	
 	cout << "Enter the student Name" << endl;
