@@ -246,7 +246,7 @@ void output_file_Student_Add(ofstream& fout, LinkedList lst2, Schedule s);
 void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList& lst2);
 void main_edit_course(LinkedList& lst, LinkedList& lst2);
 void view_schedule(LinkedList lst);
-void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpath, string outputpath, Node* currentlst);
+void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpath, Node* currentlst);
 
 // delete course
 void delete_course(LinkedList& lst, int& count);

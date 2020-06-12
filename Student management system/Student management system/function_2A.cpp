@@ -1037,7 +1037,8 @@ void main_add_course(LinkedList& lst, LinkedList& lst2)
 
 
 	cout << "Add course successfully" << endl;
-
+	cout << endl;
+	view_schedule_2(lst);
 	fin.close();
 
 }
@@ -1510,6 +1511,12 @@ void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList
 		c[i] = old_course[i];
 	}
 	c[old_course.size()] = '\0';
+	char* d = new char[outputpath.size() + 1];
+	for (int i = 0; i < outputpath.size(); i++)
+	{
+		d[i] = outputpath[i];
+	}
+	d[outputpath.size()] = '\0';
 
 	inputpath = old_course;
 	//inputpath.append(".txt");
@@ -1517,7 +1524,7 @@ void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList
 
 	LinkedList lofcourse;
 
-	load_file_course_student(lst2, lst, inputpath, outputpath, current1);
+	load_file_course_student(lst2, lst, inputpath, current1);
 	load_List_Of_Course2(lofcourse);
 	Node* currentlofcourse = lofcourse.head;
 	string temp = currentlofcourse->course.classes;
@@ -1536,9 +1543,10 @@ void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList
 	}
 	if (currentlofcourse == NULL)
 	{
-		remove(c);
+		rename(c,d);
 
 		delete[] c;
+		delete[]d;
 		return;
 	}
 	fout.open("List_Of_Course.txt");
@@ -1552,9 +1560,10 @@ void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList
 		save_list_of_course(fout, lofcourse);
 		fout.close();
 	}
-	remove(c);
+	rename(c,d);
 
 	delete[] c;
+	delete[]d;
 	cout << "edit successfully" << endl;
 	view_schedule_2(lst);
 }
@@ -1658,6 +1667,7 @@ void view_schedule_2(LinkedList lst)
 		cout << current->schedule.endHour << " ";
 		cout << current->schedule.endMinute << endl;
 		cout << current->schedule.Room << endl;
+		cout << endl;
 		current = current->next;
 	}
 }
@@ -1803,7 +1813,7 @@ void delete_course(LinkedList& lst, int& count)
 			save_list_of_course(fout, lofcourse);
 			fout.close();
 		}
-		cout << "delete " << delete_course << " from " << delete_classes<<" successfully" << endl;
+		cout << "delete " << delete_id << " from " << delete_classes<<" successfully" << endl;
 		view_schedule(lst);
 	}
 	
@@ -2237,11 +2247,11 @@ void Add_specific_student(LinkedList& lst)
 	getline(cin, academic);
 	cout << "Enter the semester of the course you want to add student" << endl;
 	getline(cin, semester);
-	cout << "Enter the classes you want to Add" << endl;
+	cout << "Enter the classes you want to Add student" << endl;
 	getline(cin, sc.classes);
-	cout << "Enter Course ID you want to Add" << endl;
+	cout << "Enter Course ID you want to Add student" << endl;
 	getline(cin, sc.id);
-	cout << "nhap vao ID of student" << endl;
+	cout << "Enter ID of student" << endl;
 	getline(cin, s.username);
 	
 	cout << "Enter the student Name" << endl;
@@ -2423,7 +2433,7 @@ void Add_specific_student(LinkedList& lst)
 }
 
 
-void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpath, string outputpath, Node* currentlst)
+void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpath, Node* currentlst)
 {
 	ifstream fin;
 	string day1, month1, year1, startHour1, startMinute1, endHour1, endMinute1;
@@ -2561,7 +2571,7 @@ void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpat
 		fin.close();
 	}
 	Node* current = lst2.head;
-	fout.open(outputpath);
+	fout.open(inputpath,ios::out);
 	if (!fout.is_open()) {
 		cout << "can't create " << inputpath << " file " << endl;
 		return;
