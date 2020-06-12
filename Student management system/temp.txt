@@ -1,0 +1,34 @@
+CheckIn* check_cur = user.student.checkIn;
+
+	while (check_cur != NULL) {
+		if (check_cur->startDay < 10)
+			cout << "0";
+		cout << check_cur->startDay << "/";
+		if (check_cur->startMonth < 10)
+			cout << "0";
+		cout << check_cur->startMonth << "/";
+		cout << check_cur->startYear << " ";
+		cout << check_cur->startHour << ":";
+		cout << check_cur->startMinute << " ";
+		cout << check_cur->endHour << ":";
+		cout << check_cur->endMinute << endl;
+
+		check_cur = check_cur->next;
+	}
+
+if (user.student.midterm == -1)
+		cout << "Midterm is empty" << endl;
+	else
+		cout << "Your Midterm: " << user.student.midterm << endl;
+	if (user.student.final == -1)
+		cout << "Final is empty" << endl;
+	else
+		cout << "Your Final: " << user.student.final << endl;
+	if (user.student.bonus == -1)
+		cout << "Bonus is empty" << endl;
+	else
+		cout << "Your Bonus: " << user.student.bonus << endl;
+	if (user.student.total == -1)
+		cout << "Total is empty" << endl;
+	else
+		cout << "Your Total: " << user.student.total << endl;
