@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include<conio.h>
 using namespace std;
 
 struct Semester
@@ -175,6 +176,8 @@ void saveNewPassword(LinkedList& list, Node& user);
 void changePassword(Node& user);
 
 //Student function
+void listOfCourse(LinkedList& list);
+
 void loadStudent(ifstream& fin, LinkedList& list);
 
 void readStudentFile(LinkedList& list);
@@ -234,7 +237,6 @@ int day_after_1_week(int day, int thang, int nam);
 bool isCheck(int nam);
 //void remove_specific_student( LinkedList &lst2, LinkedList lst);
 void main_schedule_from_csv_to_txt(LinkedList& lst, LinkedList& lst2);
-void menuLecturer(LinkedList& APCS1);
 
 void option_course(LinkedList& lst);
 void load_file_schedule_txt(LinkedList& lst, ifstream& fin, int& count);
@@ -247,7 +249,7 @@ void output_file_Student_Add(ofstream& fout, LinkedList lst2, Schedule s);
 void edit_course(LinkedList& lst, Node*& current1, string& inputpath, LinkedList& lst2);
 void main_edit_course(LinkedList& lst, LinkedList& lst2);
 void view_schedule(LinkedList lst);
-void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpath, string outputpath, Node* currentlst);
+void load_file_course_student(LinkedList lst2, LinkedList& lst1, string inputpath, Node* currentlst);
 
 // delete course
 void delete_course(LinkedList& lst, int& count);
@@ -287,5 +289,8 @@ void import_Score_Board2(string inputPath);
 void main_import_ScoreBoard();
 void edit_Grade2(string inputPath);
 void main_Edit_Grade();
-void option_Lecturer();
+void menuLecturer();
+void view_schedule_2(LinkedList lst);
+void courseFunction(LinkedList& APCS1);
+
 #endif

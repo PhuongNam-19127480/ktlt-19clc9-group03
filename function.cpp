@@ -1,4 +1,5 @@
 #include"header.h"
+
 //Load file
 Node *createNode() {
 	Node* p = new Node;
@@ -11,17 +12,15 @@ void loadStaff(fstream &fin, LinkedList &list) {
 	list.head = NULL;
 	Node* cur = NULL;
 
-	while (true) {
+	while (!fin.eof()) {
 		//init
 		Node* p = createNode();
 		//add
-		fin >> p->staff.username;
-		if (p->staff.username == "")
-			break;
-		fin >> p->staff.password;
-		fin.ignore();
+		getline(fin, p->staff.username, '\n');
+		getline(fin, p->staff.password, '\n');
 		getline(fin, p->staff.name,'\n');
-		fin >> p->staff.gender;
+		getline(fin, p->staff.gender, '\n');
+		fin.ignore();
 		p->type = 1;
 		//move
 		if (list.head == NULL) {
@@ -37,103 +36,6 @@ void loadStaff(fstream &fin, LinkedList &list) {
 	list.tail = cur;
 }
 
-void loadLecturer(fstream& fin, LinkedList& list) {
-
-	list.head = NULL;
-	Node* cur = NULL;
-
-	while (true) {
-		//init
-		Node* p = createNode();
-		//add
-		fin >> p->lecturer.username;
-		if (p->lecturer.username == "")
-			break;
-		fin >> p->lecturer.password;
-		fin.ignore();
-		getline(fin, p->lecturer.name, '\n');
-		getline(fin, p->lecturer.degree, '\n');
-		fin >> p->lecturer.gender;
-		p->type = 2;
-		//move
-		if (list.head == NULL) {
-			list.head = p;
-			cur = list.head;
-		}
-		else {
-			cur->next = p;
-			cur = cur->next;
-		}
-
-	}
-	list.tail = cur;
-}
-
-void loadStudent(fstream& fin, LinkedList& studentList)
-{
-
-	studentList.head = NULL;
-	Node* cur = NULL;
-
-	while (true)
-	{
-
-		Node* p = new Node;
-		p = createNode();
-		getline(fin, p->student.username, '\n');
-		if (p->student.username == "")
-			break;
-		getline(fin, p->student.password, '\n');
-		getline(fin, p->student.name, '\n');
-		getline(fin, p->student.DOB, '\n');
-		getline(fin, p->student.gender, '\n');
-		fin >> p->student.midterm;
-		fin >> p->student.final;
-		fin >> p->student.bonus;
-		fin >> p->student.total;
-
-		p->student.checkIn = NULL;
-		CheckIn* check_cur = NULL;
-		int count = 0;
-		while (count != 10) {
-
-			CheckIn* check_p = createCheckIn();
-
-			fin >> check_p->startYear;
-			fin >> check_p->startMonth;
-			fin >> check_p->startDay;
-			fin >> check_p->startHour;
-			fin >> check_p->startMinute;
-			fin >> check_p->endHour;
-			fin >> check_p->endMinute;
-			fin >> check_p->check;
-
-			if (p->student.checkIn == NULL) {
-				p->student.checkIn = check_p;
-				check_cur = check_p;
-			}
-			else {
-				check_cur->next = check_p;
-				check_cur = check_cur->next;
-			}
-
-			count++;
-		}
-		fin.ignore();
-		fin.ignore();
-
-		if (studentList.head == NULL) {
-			studentList.head = p;
-			cur = p;
-		}
-		else {
-			cur->next = p;
-			cur = cur->next;
-			studentList.tail = cur;
-		}
-	}
-}
-
 void readStaffFile(LinkedList& list) {
 	fstream fin;
 	fin.open("Staff.txt");
@@ -144,6 +46,35 @@ void readStaffFile(LinkedList& list) {
 		loadStaff(fin, list);
 	}
 	fin.close();
+}
+
+void loadLecturer(fstream& fin, LinkedList& list) {
+
+	list.head = NULL;
+	Node* cur = NULL;
+
+	while (!fin.eof()) {
+		//init
+		Node* p = createNode();
+		//add
+		getline(fin, p->lecturer.username, '\n');
+		getline(fin, p->lecturer.password, '\n');
+		getline(fin, p->lecturer.name, '\n');
+		getline(fin, p->lecturer.degree, '\n');
+		getline(fin, p->lecturer.gender, '\n');
+		fin.ignore();
+		p->type = 2;
+		//move
+		if (list.head == NULL) {
+			list.head = p;
+			cur = list.head;
+		}
+		else {
+			cur->next = p;
+			cur = cur->next;
+		}
+	}
+	list.tail = cur;
 }
 
 void readLecturerFile(LinkedList& list) {
@@ -158,9 +89,40 @@ void readLecturerFile(LinkedList& list) {
 	fin.close();
 }
 
-void readStudentFile(LinkedList &list) {
+void loadStudent(fstream& fin, LinkedList& list) {
+	list.head = NULL;
+	Node* cur = NULL;
+
+	while (!fin.eof())
+	{
+		//init
+		Node* p = createNode();
+		//add
+		p = createNode();
+		getline(fin, p->student.username, '\n');
+		getline(fin, p->student.password, '\n');
+		getline(fin, p->student.name, '\n');
+		getline(fin, p->student.DOB, '\n');
+		getline(fin, p->student.classes, '\n');
+		getline(fin, p->student.gender, '\n');
+		fin.ignore();
+		p->type = 3;
+		//move
+		if (list.head == NULL) {
+			list.head = p;
+			cur = p;
+		}
+		else {
+			cur->next = p;
+			cur = cur->next;
+		}
+	}
+	list.tail = cur;
+}
+
+void readStudentFile(LinkedList& list) {
 	fstream fin;
-	fin.open("19APCS1-CS162.txt");
+	fin.open("Student.txt");
 	if (!fin.is_open()) {
 		cout << "Can't open this file" << endl;
 	}
@@ -171,7 +133,7 @@ void readStudentFile(LinkedList &list) {
 }
 
 //Write file
-void save(fstream& fout, LinkedList list, Node user) {
+void save(ofstream& fout, LinkedList list, Node user) {
 
 	Node* cur = list.head;
 
@@ -180,12 +142,9 @@ void save(fstream& fout, LinkedList list, Node user) {
 		cur = list.head;
 
 		while (cur != NULL) {
-			fout << cur->staff.username;
-			fout << '\n';
-			fout << cur->staff.password;
-			fout << '\n';
-			fout << cur->staff.name;
-			fout << '\n';
+			fout << cur->staff.username << endl;
+			fout << cur->staff.password << endl;
+			fout << cur->staff.name << endl;
 			if (cur->next != NULL) {
 				fout << cur->staff.gender << endl;
 				fout << '\n';
@@ -200,14 +159,10 @@ void save(fstream& fout, LinkedList list, Node user) {
 		cur = list.head;
 
 		while (cur != NULL) {
-			fout << cur->lecturer.username;
-			fout << '\n';
-			fout << cur->lecturer.password;
-			fout << '\n';
-			fout << cur->lecturer.name;
-			fout << '\n';
-			fout << cur->lecturer.degree;
-			fout << '\n';
+			fout << cur->lecturer.username << endl;
+			fout << cur->lecturer.password << endl;
+			fout << cur->lecturer.name << endl;
+			fout << cur->lecturer.degree << endl;
 			if (cur->next != NULL) {
 				fout << cur->lecturer.gender << endl;
 				fout << '\n';
@@ -222,62 +177,17 @@ void save(fstream& fout, LinkedList list, Node user) {
 		cur = list.head;
 
 		while (cur != NULL) {
-			fout << cur->student.username;
-			fout << '\n';
-			fout << cur->student.password;
-			fout << '\n';
-			fout << cur->student.name;
-			fout << '\n';
-			fout << cur->student.DOB;
-			fout << '\n';
-			fout << cur->student.gender;
-			fout << '\n';
-			//point
-			fout << cur->student.midterm;
-			fout << '\n';
-			fout << cur->student.final;
-			fout << '\n';
-			fout << cur->student.bonus;
-			fout << '\n';
-			fout << cur->student.total;
-			fout << '\n';
-			//schedule
-			CheckIn* check_cur = cur->student.checkIn;
-			int count = 0;
-			while (count != 10) {
-
-				fout << check_cur->startYear;
-				fout << " ";
-				if (check_cur->startMonth < 10)
-					fout << "0";
-				fout << check_cur->startMonth;
-				fout << " ";
-				if (check_cur->startDay < 10)
-					fout << "0";
-				fout << check_cur->startDay;
-				fout << " ";
-				fout << check_cur->startHour;
-				fout << " ";
-				fout << check_cur->startMinute;
-				fout << " ";
-				fout << check_cur->endHour;
-				fout << " ";
-				fout << check_cur->endMinute;
-				fout << " ";
-				if (check_cur->next != NULL) {
-					fout << check_cur->check << endl;
-				}
-				else if (check_cur->next == NULL && cur->next == NULL) {
-					fout << check_cur->check;
-				}
-				else {
-					fout << check_cur->check << endl;
-					fout << '\n';
-				}
-				//move
-				check_cur = check_cur->next;
-
-				count++;
+			fout << cur->student.username << endl;
+			fout << cur->student.password << endl;
+			fout << cur->student.name << endl;
+			fout << cur->student.DOB << endl;
+			fout << cur->student.classes << endl;
+			if (cur->next != NULL) {
+				fout << cur->student.gender << endl;
+				fout << '\n';
+			}
+			else {
+				fout << cur->student.gender;
 			}
 			cur = cur->next;
 		}
@@ -285,8 +195,8 @@ void save(fstream& fout, LinkedList list, Node user) {
 	}
 }
 
-void write(LinkedList list, Node& user) {
-	fstream fout;
+void write(LinkedList list, Node user) {
+	ofstream fout;
 
 	switch (user.type) {
 	case 1:
@@ -296,7 +206,7 @@ void write(LinkedList list, Node& user) {
 		fout.open("Lecturer.txt");
 		break;
 	case 3:
-		fout.open("19APCS1-CS162.txt");
+		fout.open("Student.txt");
 		break;
 	}
 
@@ -304,6 +214,7 @@ void write(LinkedList list, Node& user) {
 		cout << "Can't open this file" << endl;
 	}
 	else {
+		fout << "";
 		save(fout, list, user);
 	}
 	fout.close();
@@ -350,42 +261,8 @@ int checkLogin(string username, string password, Node& user, LinkedList list) {
 				user.student.password = cur->student.password;
 				user.student.name = cur->student.name;
 				user.student.DOB = cur->student.DOB;
+				user.student.classes = cur->student.classes;
 				user.student.gender = cur->student.gender;
-				//point
-				user.student.midterm = cur->student.midterm;
-				user.student.final = cur->student.final;
-				user.student.bonus = cur->student.bonus;
-				user.student.total = cur->student.total;
-				int count = 0;
-				//schedule
-				user.student.checkIn = NULL;
-				CheckIn* check_lcur = cur->student.checkIn;
-				CheckIn* check_scur = user.student.checkIn;
-				while (count != 10) {
-
-					CheckIn* check_p = createCheckIn();
-
-					check_p->startYear = check_lcur->startYear;
-					check_p->startMonth = check_lcur->startMonth;
-					check_p->startDay = check_lcur->startDay;
-					check_p->startHour = check_lcur->startHour;
-					check_p->startMinute = check_lcur->startMinute;
-					check_p->endHour = check_lcur->endHour;
-					check_p->endMinute = check_lcur->endMinute;
-					check_p->check = check_lcur->check;
-					//move
-					if (user.student.checkIn == NULL) {
-						user.student.checkIn = check_p;
-						check_scur = check_p;
-						check_lcur = check_lcur->next;
-					}
-					else {
-						check_scur->next = check_p;
-						check_scur = check_scur->next;
-						check_lcur = check_lcur->next;
-					}
-					count++;
-				}
 				return 1;
 			}
 			else
@@ -401,10 +278,30 @@ Node login() {
 	Node user;
 	LinkedList list;
 	string username, password;
+	char a = 0;
+	int i = 0;
+	int j;
 	cout << "Username: ";
 	cin >> username;
 	cout << "Password: ";
-	cin >> password;
+	while (true) {
+		a = _getch();
+		if (a == 13)
+			break;
+		if (a == 8) {
+			if (i > 0) {
+				cout << "\b \b";
+				i--;
+				password.pop_back();
+			}
+		}
+		else {
+			cout << "*";
+			password += a;
+			i++;
+		}
+	}
+	cout << endl;
 
 	//check login then return user
 	readStaffFile(list);
@@ -424,26 +321,6 @@ Node login() {
 
 	user.type = -1;
 	return user;
-}
-
-//Menu 
-void menuStaff(Node user) {
-	bool con = true;
-	int choice;
-	while (con) {
-		cout << "-----Staff menu-----" << endl;
-		cout << "0. Comeback" << endl;
-		cout << "choice: ";
-		cin >> choice;
-		switch (choice) {
-			//add here
-			case 0:
-				con = false;
-				break;
-			default:
-				break;
-		}
-	}
 }
 
 void menuLecturer(Node user) {
@@ -467,7 +344,8 @@ void menuLecturer(Node user) {
 
 void menuStudent(Node user) {
 	bool con = true;
-	int choice;
+	string choice;
+	cin.ignore();
 	while (con) {
 		cout << "-----Student menu-----" << endl;
 		cout << "1. Check in" << endl;
@@ -476,36 +354,34 @@ void menuStudent(Node user) {
 		cout << "4. View scores of a course" << endl;
 		cout << "0. Comeback" << endl;
 		cout << "choice: ";
-		cin >> choice;
-		switch (choice) {
-			case 1:
-				checkIn(user);
-				break;
-			case 2:
-				viewCheckIn(user);
-				break;
-			case 3:
-				viewSchedules(user);
-				break;
-			case 4:
-				viewScore(user);
-				break;
-			case 0:
-				con = false;
-				break;
-			default:
-				break;
+		getline(cin, choice);
+		if (choice == "1") {
+			checkIn(user);
 		}
+		else if (choice == "2") {
+			viewCheckIn(user);
+		}
+		else if (choice == "3") {
+			viewSchedules(user);
+		}
+		else if (choice == "4") {
+			viewScore(user);
+		}
+		else if (choice == "0") {
+			con = false;
+		}
+		//cin.ignore();
 	}	
 }
 
 void menuShow(Node user) {
+	LinkedList list;
 	switch (user.type) {
 	case 1:
-		menuStaff(user);
+		menuStaff(user); // funcion_thien
 		break;
 	case 2:
-		menuLecturer(user);
+		menuLecturer(); // fucntion_2A
 		break;
 	case 3:
 		menuStudent(user);
@@ -547,60 +423,56 @@ void menuFunction(Node user) {
 
 void menuLogin() {
 	bool con = true;
-	int choice;
+	string choice;
 	Node user;
 	while (con) {
 		cout << "-----Main menu-----" << endl;
 		cout << "1. Login" << endl;
 		cout << "0. Exit" << endl;
 		cout << "choice: ";
-		cin >> choice;
-		switch (choice) {
-			case 1:
-				user = login();
-				if (user.type != -1)
-					menuFunction(user);
-				else
-					cout << "wrong password or account not existance!" << endl;
-				break;
-			case 0:
-				cout << "Exiting...." << endl;
-				con = false;
-				break;
-			default:
-				break;
+		getline(cin, choice);
+		if (choice == "1") {
+			user = login();
+			if (user.type != -1)
+				menuFunction(user);
+			else
+				cout << "wrong password or account not existance!" << endl;
+			cin.ignore();
+		}
+		else if (choice == "0") {
+			cout << "Exiting...." << endl;
+			con = false;
 		}
 	}
 }
-
 //View profile
 string gender(Node user) {
 	string gender;
 	switch (user.type) {
 	case 1:
-		if (user.staff.gender == "1") {
+		if (user.staff.gender == "0") {
 			gender = "Female";
 			return gender;
 		}
-		if (user.staff.gender == "0") {
+		if (user.staff.gender == "1") {
 			gender = "Male";
 			return gender;
 		}
 	case 2:
-		if (user.lecturer.gender == "1") {
+		if (user.lecturer.gender == "0") {
 			gender = "Female";
 			return gender;
 		}
-		if (user.lecturer.gender == "0") {
+		if (user.lecturer.gender == "1") {
 			gender = "Male";
 			return gender;
 		}
 	case 3:
-		if (user.student.gender == "1") {
+		if (user.student.gender == "0") {
 			gender = "Female";
 			return gender;
 		}
-		if (user.student.gender == "0") {
+		if (user.student.gender == "1") {
 			gender = "Male";
 			return gender;
 		}
@@ -611,10 +483,13 @@ void viewProfile(Node user) {
 	switch (user.type) {
 	case 1:
 		cout << "Name:" << user.staff.name << " gender:" << gender(user) << endl;
+		break;
 	case 2:
 		cout << "Name:" << user.lecturer.name << " degree:" << user.lecturer.degree << " gender:" << gender(user) << endl;
+		break;
 	case 3:
 		cout << "Name:" << user.student.name << " class:" << user.student.classes << " Date of birth:" << user.student.DOB << " gender:" << gender(user) << endl;
+		break;
 	}
 	
 }
@@ -663,6 +538,8 @@ void changePassword(Node &user) {
 	//Read file
 	LinkedList list;
 
+	char a;
+	int i = 0;
 	string curPassword;
 	string newPassword;
 	string newAgPassword;
@@ -683,14 +560,68 @@ void changePassword(Node &user) {
 	}
 
 	cout << "Current password: ";
-	cin >> curPassword;
+	while (true) {
+		a = _getch();
+		if (a == 13)
+			break;
+		if (a == 8) {
+			if (i > 0) {
+				cout << "\b \b";
+				i--;
+				curPassword.pop_back();
+			}
+		}
+		else {
+			cout << "*";
+			curPassword += a;
+			i++;
+		}
+	}
+	cout << endl;
+	i = 0;
 	switch (user.type) {
 		case 1:
 			if (curPassword == user.staff.password) {
 				cout << "New password: ";
-				cin >> newPassword;
+				while (true) {
+					a = _getch();
+					if (a == 13)
+						break;
+					if (a == 8) {
+						if (i > 0) {
+							cout << "\b \b";
+							i--;
+							newPassword.pop_back();
+						}
+					}
+					else {
+						cout << "*";
+						newPassword += a;
+						i++;
+					}
+				}
+				cout << endl;
 				cout << "Input new password again: ";
-				cin >> newAgPassword;
+				char a;
+				i = 0;
+				while (true) {
+					a = _getch();
+					if (a == 13)
+						break;
+					if (a == 8) {
+						if (i > 0) {
+							cout << "\b \b";
+							i--;
+							newAgPassword.pop_back();
+						}
+					}
+					else {
+						cout << "*";
+						newAgPassword += a;
+						i++;
+					}
+				}
+				cout << endl;
 				if (newPassword == newAgPassword) {
 					user.staff.password = newPassword;
 					saveNewPassword(list, user);
@@ -707,9 +638,44 @@ void changePassword(Node &user) {
 		case 2:
 			if (curPassword == user.lecturer.password) {
 				cout << "New password: ";
-				cin >> newPassword;
+				while (true) {
+					a = _getch();
+					if (a == 13)
+						break;
+					if (a == 8) {
+						if (i > 0) {
+							cout << "\b \b";
+							i--;
+							newPassword.pop_back();
+						}
+					}
+					else {
+						cout << "*";
+						newPassword += a;
+						i++;
+					}
+				}
+				cout << endl;
 				cout << "Input new password again: ";
-				cin >> newAgPassword;
+				i = 0;
+				while (true) {
+					a = _getch();
+					if (a == 13)
+						break;
+					if (a == 8) {
+						if (i > 0) {
+							cout << "\b \b";
+							i--;
+							newAgPassword.pop_back();
+						}
+					}
+					else {
+						cout << "*";
+						newAgPassword += a;
+						i++;
+					}
+				}
+				cout << endl;
 				if (newPassword == newAgPassword) {
 					user.lecturer.password = newPassword;
 					saveNewPassword(list, user);
@@ -726,9 +692,45 @@ void changePassword(Node &user) {
 		case 3:
 			if (curPassword == user.student.password) {
 				cout << "New password: ";
-				cin >> newPassword;
+				while (true) {
+					a = _getch();
+					if (a == 13)
+						break;
+					if (a == 8) {
+						if (i > 0) {
+							cout << "\b \b";
+							i--;
+							newPassword.pop_back();
+						}
+					}
+					else {
+						cout << "*";
+						newPassword += a;
+						i++;
+					}
+				}
+				cout << endl;
 				cout << "Input new password again: ";
-				cin >> newAgPassword;
+				char a;
+				i = 0;
+				while (true) {
+					a = _getch();
+					if (a == 13)
+						break;
+					if (a == 8) {
+						if (i > 0) {
+							cout << "\b \b";
+							i--;
+							newAgPassword.pop_back();
+						}
+					}
+					else {
+						cout << "*";
+						newAgPassword += a;
+						i++;
+					}
+				}
+				cout << endl;
 				if (newPassword == newAgPassword) {
 					user.student.password = newPassword;
 					saveNewPassword(list, user);
@@ -752,6 +754,174 @@ CheckIn* createCheckIn() {
 	return p;
 }
 
+//load check in (load student in classes)
+void loadStudentInClass(ifstream& fin, LinkedList& studentList)
+{
+	studentList.head = NULL;
+	Node* cur = NULL;
+
+	while (!fin.eof())
+	{
+		//init
+		Node* p = createNode();
+		//add
+		p = createNode();
+		getline(fin, p->student.username, '\n');
+		if (p->student.username == "")
+			break;
+		getline(fin, p->student.name, '\n');
+		getline(fin, p->student.DOB, '\n');
+		getline(fin, p->student.gender, '\n');
+		//score
+		fin >> p->student.midterm;
+		fin >> p->student.final;
+		fin >> p->student.bonus;
+		fin >> p->student.total;
+		//check in
+		p->student.checkIn = NULL;
+		CheckIn* check_cur = NULL;
+		int count = 0;
+		while (count != 10) {
+
+			CheckIn* check_p = createCheckIn();
+
+			fin >> check_p->startYear;
+			fin >> check_p->startMonth;
+			fin >> check_p->startDay;
+			fin >> check_p->startHour;
+			fin >> check_p->startMinute;
+			fin >> check_p->endHour;
+			fin >> check_p->endMinute;
+			fin >> check_p->check;
+
+			if (p->student.checkIn == NULL) {
+				p->student.checkIn = check_p;
+				check_cur = check_p;
+			}
+			else {
+				check_cur->next = check_p;
+				check_cur = check_cur->next;
+			}
+
+			count++;
+		}
+		//active
+		fin >> p->student.status;
+		fin.ignore();
+		fin.ignore();
+		//move
+		if (studentList.head == NULL) {
+			studentList.head = p;
+			cur = p;
+		}
+		else {
+			cur->next = p;
+			cur = cur->next;
+		}
+	}
+	studentList.tail = cur;
+}
+
+void readStudenInClassFile(string path, LinkedList& studentList) {
+	ifstream fin;
+	path += ".txt";
+	fin.open(path);
+	if (!fin.is_open()) {
+		cout << "Can't open file " << path << endl;
+	}
+	else {
+		loadStudentInClass(fin, studentList);
+	}
+	fin.close();
+}
+
+void listOfCourse(LinkedList& list) {
+	ifstream fin;
+	Course course;
+	list.head = NULL;
+	Node* cur = NULL;
+	fin.open("List_Of_Course.txt");
+	if (!fin.is_open()) {
+		cout << "can't open List_Of_Course" << endl;
+	}
+	else {
+		list.head = NULL;
+		Node* current = list.head;
+		while (!fin.eof()) {
+			//init
+			Node* p = createNode();
+			getline(fin, p->course.classes, '-');
+			getline(fin, p->course.id, '\n');
+			//move
+			if (list.head == NULL) {
+				list.head = p;
+				cur = p;
+			}
+			else {
+				cur->next = p;
+				cur = cur->next;
+			}
+		}
+	}
+}
+
+//Save check in
+void saveCheckIn(ofstream& fout, LinkedList studentList) {
+	Node* cur = studentList.head;
+
+	while (cur != NULL) {
+
+		fout << cur->student.username << endl;
+		fout << cur->student.name << endl;
+		fout << cur->student.DOB << endl;
+		fout << cur->student.gender << endl;
+		//score
+		fout << cur->student.midterm << endl;
+		fout << cur->student.final << endl;
+		fout << cur->student.bonus << endl;
+		fout << cur->student.total << endl;
+		//schedule
+		CheckIn* check_cur = cur->student.checkIn;
+		int count = 0;
+		while (count != 10) {
+
+			fout << check_cur->startYear << " ";
+			if (check_cur->startMonth < 10)
+				fout << "0";
+			fout << check_cur->startMonth << " ";
+			if (check_cur->startDay < 10)
+				fout << "0";
+			fout << check_cur->startDay << " ";
+			fout << check_cur->startHour << " ";
+			fout << check_cur->startMinute << " ";
+			fout << check_cur->endHour << " ";
+			fout << check_cur->endMinute << " ";
+			fout << check_cur->check << endl;
+			//move
+			count++;
+			check_cur = check_cur->next;
+		}
+		//active
+		fout << cur->student.status << endl;
+		fout << '\n';
+		//move
+		cur = cur->next;
+	}
+}
+
+void readCheckIn(string path, LinkedList studentList) {
+	ofstream fout;
+	path += ".txt";
+	fout.open(path);
+	if (!fout.is_open()) {
+		cout << "Can't open file " << path << endl;
+	}
+	else {
+		saveCheckIn(fout, studentList);
+	}
+	fout.close();
+}
+
 //Check in
 tm currentDateTime() {
 	Time timeNow;
@@ -768,176 +938,190 @@ tm currentDateTime() {
 	localTime.tm_mon = (&localTime)->tm_mon + 1;
 	localTime.tm_year = (&localTime)->tm_year + 1900;
 
-	
 	return localTime;
 }
-//Check in
-void saveCheckIn(LinkedList& list, Node& user) {
 
-	CheckIn* check_cur = user.student.checkIn;
-
-	Node* cur = list.head;
-	while (cur != NULL) {
-		if (user.student.username == cur->student.username) {
-			int count = 0;
-			//schedule
-			CheckIn* check_lcur = cur->student.checkIn;
-			CheckIn* check_scur = user.student.checkIn;
-			while (count != 10) {
-				if (check_lcur->check != check_scur->check)
-				{
-					check_lcur->check = check_scur->check;
-					return;
-				}
-				//move
-				check_scur = check_scur->next;
-				check_lcur = check_lcur->next;
-				count++;
-			}
-			return;
-		} else
-			cur = cur->next;
-	}
-}
-
-void checkIn(Node &user) {
+int isCheckIn(LinkedList &studentList, Node user) {
 
 	tm localTime = currentDateTime();
 
-	CheckIn* check_cur = user.student.checkIn;
-	int check = 0;
-	while (check_cur != NULL) {
+	Node* cur = studentList.head;
+	
+	while (cur != NULL) {
+		CheckIn* check_cur = cur->student.checkIn;
+		if (user.student.username == cur->student.username) {
+			while (check_cur != NULL) {
 
-		if (check_cur->startYear == localTime.tm_year) {
-			if (check_cur->startMonth == localTime.tm_mon) {
-				if (check_cur->startDay == localTime.tm_mday) {
-					if (( localTime.tm_hour == check_cur->startHour && localTime.tm_min > check_cur->startMinute)
-						|| (localTime.tm_hour > check_cur->startHour && localTime.tm_hour < check_cur->endHour)
-						|| (localTime.tm_hour == check_cur->endHour  && localTime.tm_min < check_cur->endMinute)) {
-						check_cur->check = 1;
-						check++;
-						cout << "Checked!" << endl;
-						break;
+				if (check_cur->startYear == localTime.tm_year) {
+					if (check_cur->startMonth == localTime.tm_mon) {
+						if (check_cur->startDay == localTime.tm_mday) {
+							if ((localTime.tm_hour == check_cur->startHour && localTime.tm_min > check_cur->startMinute)
+								|| (localTime.tm_hour > check_cur->startHour && localTime.tm_hour < check_cur->endHour)
+								|| (localTime.tm_hour == check_cur->endHour && localTime.tm_min < check_cur->endMinute)) {
+								check_cur->check = 1;
+								return 1;
+							}
+						}
+
 					}
 				}
-			
+				check_cur = check_cur->next;
 			}
 		}
-		check_cur = check_cur->next;
+		cur = cur->next;
 	}
-	if (check == 0)
-		cout << "Too late!" << endl;
-
-	LinkedList list;
-
-	readStudentFile(list);
-	saveCheckIn(list, user);
-	write(list, user);
+	return 0;
 }
 
+void checkIn(Node user) {
 
+	LinkedList studentList;
+	LinkedList courses;
+
+	listOfCourse(courses);
+
+	Node* cur = courses.head;
+	while(cur != NULL) {
+		string fileName = cur->course.classes + "-" + cur->course.id;
+		readStudenInClassFile(fileName, studentList);
+		if (isCheckIn(studentList, user) == 1) {
+			cout << "Check!" << endl;
+			readCheckIn(fileName, studentList);
+			return;
+		}
+		cur = cur->next;
+	}
+	cout << "Too late!" << endl;
+}
 
 void viewCheckIn(Node user) {
 
-	CheckIn* check_cur = user.student.checkIn;
+	LinkedList studentList;
+	LinkedList courses;
 
-	while (check_cur != NULL) {
-		
-		if (check_cur->startDay < 10)
-			cout << "0";
-		cout << check_cur->startDay << "/";
-		if (check_cur->startMonth < 10)
-			cout << "0";
-		cout << check_cur->startMonth << "/";
-		cout << check_cur->startYear << ": ";
+	listOfCourse(courses);
 
-		if (check_cur->check == -1)
-			cout << "No" << endl;
-		else
-			cout << "Yes" << endl;
+	Node* c_cur = courses.head;
 
-		check_cur = check_cur->next;
+	while (c_cur != NULL) {
+		string fileName = c_cur->course.classes + "-" + c_cur->course.id;
+		readStudenInClassFile(fileName, studentList);
+
+		Node* cur = studentList.head;
+
+		while (cur != NULL) {
+			if (user.student.username == cur->student.username) {
+				CheckIn* check_cur = cur->student.checkIn;
+				cout << "class: " << fileName << endl;
+
+				while (check_cur != NULL) {
+					if (check_cur->startDay < 10)
+						cout << "0";
+					cout << check_cur->startDay << "/";
+					if (check_cur->startMonth < 10)
+						cout << "0";
+					cout << check_cur->startMonth << "/";
+					cout << check_cur->startYear << ": ";
+
+					if (check_cur->check == -1)
+						cout << "No" << endl;
+					else
+						cout << "Yes" << endl;
+
+					check_cur = check_cur->next;
+				}
+			}
+			cur = cur->next;
+		}
+		c_cur = c_cur->next;
 	}
-
 	cout << endl;
 }
 
 void viewSchedules(Node user) {
-	
-	CheckIn* check_cur = user.student.checkIn;
 
-	while (check_cur != NULL) {
-		if (check_cur->startDay < 10)
-			cout << "0";
-		cout << check_cur->startDay << "/";
-		if (check_cur->startMonth < 10)
-			cout << "0";
-		cout << check_cur->startMonth << "/";
-		cout << check_cur->startYear << " ";
-		cout << check_cur->startHour << ":";
-		cout << check_cur->startMinute << " ";
-		cout << check_cur->endHour << ":";
-		cout << check_cur->endMinute << endl;
+	LinkedList studentList;
+	LinkedList courses;
 
-		check_cur = check_cur->next;
+	listOfCourse(courses);
+
+	Node* c_cur = courses.head;
+
+	while (c_cur != NULL) {
+		string fileName = c_cur->course.classes + "-" + c_cur->course.id;
+		readStudenInClassFile(fileName, studentList);
+
+		Node* cur = studentList.head;
+		while (cur != NULL) {
+
+			if (user.student.username == cur->student.username) {
+				CheckIn* check_cur = cur->student.checkIn;
+
+				cout << "class: " << fileName << endl;
+				while (check_cur != NULL) {
+					if (check_cur->startDay < 10)
+						cout << "0";
+					cout << check_cur->startDay << "/";
+					if (check_cur->startMonth < 10)
+						cout << "0";
+					cout << check_cur->startMonth << "/";
+					cout << check_cur->startYear << " ";
+					cout << check_cur->startHour << ":";
+					cout << check_cur->startMinute << " ";
+					cout << check_cur->endHour << ":";
+					cout << check_cur->endMinute << endl;
+
+					check_cur = check_cur->next;
+				}
+
+			}
+			cur = cur->next;
+		}
+		c_cur = c_cur->next;
 	}
-
 	cout << endl;
 }
 
 void viewScore(Node user) {
 
-	if (user.student.midterm == -1)
-		cout << "Midterm is empty" << endl;
-	else
-		cout << "Your Midterm: " << user.student.midterm << endl;
-	if (user.student.final == -1)
-		cout << "Final is empty" << endl;
-	else
-		cout << "Your Final: " << user.student.midterm << endl;
-	if (user.student.bonus == -1)
-		cout << "Bonus is empty" << endl;
-	else
-		cout << "Your Bonus: " << user.student.total << endl;
-	if (user.student.total == -1)
-		cout << "Total is empty" << endl;
-	else
-		cout << "Your Total: " << user.student.midterm << endl;
+	LinkedList studentList;
+	LinkedList courses;
 
-	cout << endl;
-}
+	listOfCourse(courses);
 
-void displayStudent(LinkedList& list) {
+	Node* c_cur = courses.head;
 
-	Node* cur = list.head;
-	CheckIn* check_cur = list.head->student.checkIn;
+	while (c_cur != NULL) {
+		string fileName = c_cur->course.classes + "-" + c_cur->course.id;
+		readStudenInClassFile(fileName, studentList);
 
-	while (cur != NULL)
-	{
-		cout << cur->student.username << endl;
-		cout << cur->student.password << endl;
-		cout << cur->student.name << endl;
-		cout << cur->student.DOB << endl;
-		cout << cur->student.gender << endl;
-		cout << cur->student.midterm << endl;
-		cout << cur->student.final << endl;
-		cout << cur->student.bonus << endl;
-		cout << cur->student.total << endl;
+		Node* cur = studentList.head;
+		while (cur != NULL) {
 
-		CheckIn* check_cur = cur->student.checkIn;
-		while (check_cur != NULL) {
-			cout << check_cur->startDay << " ";
-			cout << check_cur->startMonth << " ";
-			cout << check_cur->startYear << " ";
-			cout << check_cur->startHour << " ";
-			cout << check_cur->startMinute << " ";
-			cout << check_cur->endHour << " ";
-			cout << check_cur->endMinute << " ";
-			cout << check_cur->check << endl;
+			if (user.student.username == cur->student.username) {
 
-			check_cur = check_cur->next;
+				cout << "class: " << fileName << endl;
+				if (cur->student.midterm == -1)
+					cout << "Midterm is empty" << endl;
+				else
+					cout << "Your Midterm: " << cur->student.midterm << endl;
+				if (cur->student.final == -1)
+					cout << "Final is empty" << endl;
+				else
+					cout << "Your Final: " << cur->student.final << endl;
+				if (cur->student.bonus == -1)
+					cout << "Bonus is empty" << endl;
+				else
+					cout << "Your Bonus: " << cur->student.bonus << endl;
+				if (cur->student.total == -1)
+					cout << "Total is empty" << endl;
+				else
+					cout << "Your Total: " << cur->student.total << endl;
+
+			}
+			cur = cur->next;
 		}
-		cout << endl;
-		cur = cur->next;
+		c_cur = c_cur->next;
 	}
+	cout << endl;
 }

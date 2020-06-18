@@ -1,7 +1,7 @@
-#include "Header.h"
+#include "header.h"
 
 
-Node* CreateNode(string No, string ID, string Lastname, string Firstname, string Gender, string Day, string Month, string Year) {
+Node* CreateNodeCSV(string No, string ID, string Lastname, string Firstname, string Gender, string Day, string Month, string Year) {
 	Node* p = new Node;
 	p->Info.No = No;
 	p->Info.ID = ID;
@@ -12,10 +12,196 @@ Node* CreateNode(string No, string ID, string Lastname, string Firstname, string
 	p->Info.Month = Month;
 	p->Info.Year = Year;
 	p->Info.DoB = p->Info.Day + " " + p->Info.Month + " " + p->Info.Year;
-	string Password = (p->Info.ID).substr(4,7);
+	string Password = (p->Info.ID).substr(4, 7);
 	p->Info.Password = Password + p->Info.Day + p->Info.Month;
 	p->next = NULL;
 	return p;
+}
+
+void courseFunction(LinkedList& APCS1) {
+	ifstream fin;
+
+
+	LinkedList student_APCS1, lstCourse, lstLecturer;
+	lstCourse.head = NULL;
+
+	while (true)
+	{
+		string choice;
+		cout << "-----Course function-----" << endl;
+		cout << "if you don't have the Schedule txt yet,pls choose 1 to create schedule txt,if you already have you can choose other option" << endl;
+		cout << "1.create file schedule txt file" << endl;
+		cout << "2.Add course to file" << endl;
+		cout << "3.Edit course" << endl;
+		cout << "4.delete course" << endl;
+		cout << "5.remove specific student" << endl;
+		cout << "6.Add specific student" << endl;
+		cout << "7.View list of courses in the current semester." << endl;
+		cout << "8.View list of students of a course." << endl;
+		cout << "9.View attendance list of a course." << endl;
+		cout << "10.View all Lecturer" << endl;
+		cout << "11.Search and view the scoreboard of a course." << endl;
+		cout << "12.Export a scoreboard of a course to a csv file." << endl;
+		cout << "13.Export a Attendence of a course to a csv file." << endl;
+		cout << "0.exit" << endl;
+		cout << "Choice: ";
+		getline(cin, choice);
+		if (choice == "")
+		{
+			getline(cin, choice);
+		}
+		if (choice == "1")
+		{
+
+			LinkedList student_APCS1;
+			cout << "loading Schedule csv" << endl;
+			main_schedule_from_csv_to_txt(APCS1, student_APCS1);
+		}
+		else if (choice == "2")
+		{
+
+			main_add_course(APCS1, student_APCS1);
+		}
+		else if (choice == "3")
+		{
+
+			main_edit_course(APCS1, student_APCS1);
+		}
+		else if (choice == "4")
+		{
+
+			main_delete_course(APCS1);
+		}
+		else if (choice == "5")
+		{
+
+			main_remove_specific_student(APCS1, student_APCS1);
+		}
+		else if (choice == "6")
+		{
+
+			Add_specific_student(APCS1);
+		}
+		else if (choice == "7")
+		{
+
+			view_List_Of_Course2(lstCourse);
+		}
+		else if (choice == "8")
+		{
+
+
+			main_View_Student_Of_Course();
+		}
+		else if (choice == "9")
+		{
+
+			main_View_Attendence_List_Of_Course();
+		}
+		else if (choice == "10")
+		{
+
+			viewLecturer(lstLecturer);
+		}
+		else if (choice == "11")
+		{
+
+
+			main_View_Score_Board();
+		}
+		else if (choice == "12")
+		{
+
+			main_export_Score_Board_csv();
+		}
+		else if (choice == "13")
+		{
+
+			main_Export_Attendence_csv_File();
+		}
+		else if (choice == "0")
+		{
+			break;
+		}
+		else
+		{
+			cout << "your choice dosen't exsit you stupid" << endl;
+			continue;
+		}
+	}
+}
+
+void menuStaff(Node user) {
+	LinkedList tamAnh;
+	LinkedList CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2;
+	string choice;
+
+	while (true) {
+		cout << "-----Staff menu-----" << endl;
+		cout << "1. Load student from class" << endl;
+		cout << "2. Insert student to a class" << endl;
+		cout << "3. Edit a student" << endl;
+		cout << "4. Remove a student" << endl;
+		cout << "5. Change class" << endl;
+		cout << "6. View list of classes " << endl;
+		cout << "7. View list of students in a class" << endl;
+		cout << "8. Semester function" << endl;
+		cout << "9. Course function" << endl;
+		cout << "0. Comeback" << endl;
+		cout << endl;
+
+		cout << "choice: ";
+		cin >> choice;
+
+		if (choice == "1") {
+			cout << "1. Load student from class" << endl;
+			Load_Option(CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2);
+			cout << endl;
+		}
+		else if (choice == "2") {
+			cout << "2. Insert student to a class" << endl;
+			Insert_Option(CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2);
+			cout << endl;
+		}
+		else if (choice == "3") {
+			cout << "3. Edit an existing student" << endl;
+			Edit_Option(CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2);
+			cout << endl;
+		}
+		else if (choice == "4") {
+			cout << "4. Remove a student" << endl;
+			Delete_Option(CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2);
+			cout << endl;
+		}
+		else if (choice == "5") {
+			cout << "5. Change class" << endl;
+			Change_Class_Option(CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2);
+			cout << endl;
+		}
+		else if (choice == "6") {
+			cout << "6. View list of class" << endl;
+			View_Class_List(CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2);
+			cout << endl;
+		}
+		else if (choice == "7") {
+			cout << "7. View list of students in a class" << endl;
+			View_Student_List_Option(CLC1, CLC2, CLC3, CLC4, CLC5, CLC6, CLC7, CLC8, CLC9, CLC10, APCS1, APCS2);
+			cout << endl;
+		}
+		else if (choice == "8") {
+			main_semester();
+		}
+		else if (choice == "9") {
+			courseFunction(tamAnh);
+		}
+		else if (choice == "0") {
+			cout << "Exiting" << endl;
+			break;
+		}
+		else {
+			cout << "Incorrect" << endl;
+		}
+	}
 }
 
 void LoadStudent(ifstream& finput, LinkedList& Stu) {
@@ -49,11 +235,14 @@ void LoadStudent(ifstream& finput, LinkedList& Stu) {
 		getline(finput, Month, '/');
 		getline(finput, Year);
 		Stu.count++;
-		Node* p = CreateNode(No, ID, Lastname, Firstname, Gender, Day, Month, Year);
+		Node* p = CreateNodeCSV(No, ID, Lastname, Firstname, Gender, Day, Month, Year);
 		Stu.head = p;
 		Node* current = Stu.head;
-		while (finput.eof() == false) {
+		while (true) {
 			getline(finput, No, ',');
+			if (No == "") {
+				break;
+			}
 			getline(finput, ID, ',');
 			getline(finput, Lastname, ',');
 			getline(finput, Firstname, ',');
@@ -61,7 +250,7 @@ void LoadStudent(ifstream& finput, LinkedList& Stu) {
 			getline(finput, Day, '/');
 			getline(finput, Month, '/');
 			getline(finput, Year);
-			Node* p = CreateNode(No, ID, Lastname, Firstname, Gender, Day, Month, Year);
+			Node* p = CreateNodeCSV(No, ID, Lastname, Firstname, Gender, Day, Month, Year);
 			current->next = p;
 			current = current->next;
 			Stu.count++;
@@ -269,18 +458,15 @@ void InsertStudent(LinkedList& Stu) {
 	cout << "Enter the number of student you want to insert: ";
 	cin >> n;
 	cin.ignore();
-	Node* current = Stu.head;
-	while (current->next != Stu.tail) {
-		current = current->next;
-	}
+	Node* current = Stu.tail;
 	for (int i = 0; i < n; i++) {
 		ostringstream convert;
-		convert << Stu.count;
+		convert << ++Stu.count;
 		No = convert.str();
 		cout << "Enter ID: ";
 		getline(cin, ID);
 		cout << "Enter Lastname: ";
-		getline(cin,Lastname);
+		getline(cin, Lastname);
 		cout << "Enter Firstname: ";
 		getline(cin, Firstname);
 		cout << "Enter Gender (Male/Female): ";
@@ -292,12 +478,11 @@ void InsertStudent(LinkedList& Stu) {
 		cout << "Enter Year of Birth: ";
 		getline(cin, Year);
 		cout << "Import Successfully" << endl;
-		Node* p = CreateNode(No, ID, Lastname, Firstname, Gender, Day, Month, Year);
+		Node* p = CreateNodeCSV(No, ID, Lastname, Firstname, Gender, Day, Month, Year);
 		current->next = p;
 		current = current->next;
 		Stu.count++;
 	}
-	current = current->next;
 	Stu.tail = current;
 }
 
@@ -393,7 +578,7 @@ void Delete_Student(LinkedList& Class) {
 		else if (Class.head->Info.ID != StuID) {
 			Node* previous = Class.head;
 			Node* current = previous->next;
-			while (current != Class.tail) {
+			while (current != NULL) {
 				if (current->Info.ID == StuID) {
 					cout << "Delete student from class" << endl;
 					cout << current->Info.No << endl;
@@ -420,7 +605,7 @@ void Delete_Student(LinkedList& Class) {
 		i++;
 	}
 	Node* current1 = Class.head;
-	while (current1 != Class.tail && Count <= Class.count) {
+	while (current1->next != NULL) {
 		current1->Info.No = (j + '0');
 		j++;
 		current1 = current1->next;
@@ -463,7 +648,7 @@ void SaveStudentFile(LinkedList Stu) {
 				}
 				foutput << "\n";
 				current = current->next;
-			}	
+			}
 		}
 		foutput.close();
 	}
@@ -477,7 +662,7 @@ void OuputStudentList(LinkedList Stu) {
 		cout << "You haven't loaded this class" << endl;
 	}
 	else {
-		while (current != Stu.tail && Count < Stu.count) {
+		while (current != NULL && Count < Stu.count) {
 			cout << current->Info.No << endl;
 			cout << current->Info.ID << endl;
 			cout << current->Info.Lastname << " " << current->Info.Firstname << endl;
@@ -488,7 +673,7 @@ void OuputStudentList(LinkedList Stu) {
 			current = current->next;
 			Count++;
 		}
-	}	
+	}
 }
 
 void Insert_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedList& CLC4, LinkedList& CLC5, LinkedList& CLC6, LinkedList& CLC7, LinkedList& CLC8, LinkedList& CLC9, LinkedList& CLC10, LinkedList& APCS1, LinkedList& APCS2) {
@@ -583,7 +768,7 @@ void Insert_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC4);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "5") {
 			if (CLC5.ClassName.length() == 0) {
@@ -607,7 +792,7 @@ void Insert_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC6);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "7") {
 			if (CLC7.ClassName.length() == 0) {
@@ -655,7 +840,7 @@ void Insert_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC10);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "11") {
 			if (APCS1.ClassName.length() == 0) {
@@ -668,7 +853,7 @@ void Insert_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				cout << "-----End-----" << endl;
 				cout << endl;
 			}
-			
+
 		}
 		else if (choice == "12") {
 			if (APCS2.ClassName.length() == 0) {
@@ -680,7 +865,7 @@ void Insert_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(APCS2);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "0") {
 			cout << "Exiting" << endl;
@@ -749,7 +934,7 @@ void Edit_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedLis
 				SaveStudentFile(CLC1);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "2") {
 			if (CLC2.ClassName.length() == 0) {
@@ -797,7 +982,7 @@ void Edit_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedLis
 				SaveStudentFile(CLC5);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "6") {
 			if (CLC6.ClassName.length() == 0) {
@@ -833,7 +1018,7 @@ void Edit_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedLis
 				SaveStudentFile(CLC8);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "9") {
 			if (CLC9.ClassName.length() == 0) {
@@ -845,7 +1030,7 @@ void Edit_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedLis
 				SaveStudentFile(CLC9);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "10") {
 			if (CLC10.ClassName.length() == 0) {
@@ -857,7 +1042,7 @@ void Edit_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedLis
 				SaveStudentFile(CLC10);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "11") {
 			if (APCS1.ClassName.length() == 0) {
@@ -942,7 +1127,7 @@ void View_Student_List_Option(LinkedList CLC1, LinkedList CLC2, LinkedList CLC3,
 			cout << "Viewing 19CLC1" << endl;
 			OuputStudentList(CLC1);
 			cout << "-----End-----" << endl;
-			cout << endl;	
+			cout << endl;
 		}
 		else if (choice == "2") {
 			cout << "Viewing 19CLC1" << endl;
@@ -1120,7 +1305,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC1);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "2") {
 			if (CLC2.ClassName.length() == 0) {
@@ -1132,7 +1317,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC2);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}		
+			}
 		}
 		else if (choice == "3") {
 			if (CLC3.ClassName.length() == 0) {
@@ -1144,7 +1329,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC3);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "4") {
 			if (CLC4.ClassName.length() == 0) {
@@ -1156,7 +1341,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC4);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "5") {
 			if (CLC5.ClassName.length() == 0) {
@@ -1168,7 +1353,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC5);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "6") {
 			if (CLC6.ClassName.length() == 0) {
@@ -1180,7 +1365,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC6);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "7") {
 			if (CLC7.ClassName.length() == 0) {
@@ -1192,7 +1377,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(CLC7);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "8") {
 			if (CLC8.ClassName.length() == 0) {
@@ -1217,7 +1402,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				cout << "-----End-----" << endl;
 				cout << endl;
 			}
-		}	
+		}
 		else if (choice == "10") {
 			if (CLC10.ClassName.length() == 0) {
 				cout << "You haven't loaded this class" << endl;
@@ -1240,7 +1425,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(APCS1);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "12") {
 			if (APCS2.ClassName.length() == 0) {
@@ -1252,7 +1437,7 @@ void Delete_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, LinkedL
 				SaveStudentFile(APCS2);
 				cout << "-----End-----" << endl;
 				cout << endl;
-			}	
+			}
 		}
 		else if (choice == "0") {
 			cout << "Exiting" << endl;
@@ -1278,7 +1463,7 @@ void Delete_Student_From_Class(LinkedList& Class, LinkedList& TempList) {
 		cout << "Enter ID of a student wants to change class: ";
 		getline(cin, StuID);
 		if (Class.head->Info.ID == StuID) {
-			Node* temp = CreateNode(Class.head->Info.No, Class.head->Info.ID, Class.head->Info.Lastname, Class.head->Info.Firstname, Class.head->Info.Gender, Class.head->Info.Day, Class.head->Info.Month, Class.head->Info.Year);
+			Node* temp = CreateNodeCSV(Class.head->Info.No, Class.head->Info.ID, Class.head->Info.Lastname, Class.head->Info.Firstname, Class.head->Info.Gender, Class.head->Info.Day, Class.head->Info.Month, Class.head->Info.Year);
 			temp->next = TempList.head;
 			TempList.head = temp;
 			Node* p = Class.head;
@@ -1289,9 +1474,9 @@ void Delete_Student_From_Class(LinkedList& Class, LinkedList& TempList) {
 		else if (Class.head->Info.ID != StuID) {
 			Node* previous = Class.head;
 			Node* current = previous->next;
-			while (current != Class.tail) {
+			while (current != NULL) {
 				if (current->Info.ID == StuID) {
-					Node* temp = CreateNode(current->Info.No, current->Info.ID, current->Info.Lastname, current->Info.Firstname, current->Info.Gender, current->Info.Day, current->Info.Month, current->Info.Year);
+					Node* temp = CreateNodeCSV(current->Info.No, current->Info.ID, current->Info.Lastname, current->Info.Firstname, current->Info.Gender, current->Info.Day, current->Info.Month, current->Info.Year);
 					temp->next = TempList.head;
 					TempList.head = temp;
 					Node* p = current;
@@ -1309,40 +1494,25 @@ void Delete_Student_From_Class(LinkedList& Class, LinkedList& TempList) {
 		i++;
 	}
 	Node* current1 = Class.head;
-	while (current1 != Class.tail && Count <= Class.count) {
+	while (current1->next != NULL) {
 		current1->Info.No = (j + '0');
 		j++;
 		current1 = current1->next;
-		Count++;
 	}
 }
 
 void Add_Student_To_Class(LinkedList& Stu, LinkedList TempList) {
-	int n;
-	int Count = 0;
-	int j = 1;
-
-	Node* current = Stu.head;
-	while (current != Stu.tail) {
-		current = current->next;
-	}
+	Node* current = Stu.tail;
 
 	Node* current1 = TempList.head;
 	while (current1 != NULL) {
+		ostringstream convert;
+		convert << ++Stu.count;
+		current1->Info.No = convert.str();
 		current->next = current1;
 		current = current->next;
+		Stu.tail = current;
 		current1 = current1->next;
-		Stu.count++;
-	}
-	current = current->next;
-	Stu.tail = current;
-
-	Node* current2 = Stu.head;
-	while (current2 != Stu.tail && Count <= Stu.count) {
-		current2->Info.No = (j + '0');
-		j++;
-		current2 = current2->next;
-		Count++;
 	}
 }
 
@@ -1526,4 +1696,3 @@ void Change_Class_Option(LinkedList& CLC1, LinkedList& CLC2, LinkedList& CLC3, L
 		}
 	}
 }
-
